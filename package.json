@@ -1,0 +1,11 @@
+{
+  "name": "sonkun-streaming-web-app",
+  "private": true,
+  "scripts": {
+    "build:css": "npx @tailwindcss/cli -i ./styles/tailwind.input.css -o ./styles/tailwind.css --minify"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "4.3.0",
+    "tailwindcss": "4.3.3"
+  }
+}

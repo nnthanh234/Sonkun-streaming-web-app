@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+    --color-db-orange: #FF6B00;
+    --color-db-gold: #FFD700;
+    --color-db-crimson: #E60000;
+    --color-db-dark: #0A0C10;
+    --color-db-card: #121520;
+    --color-db-gray: #1A1E2E;
+    --color-db-glow: #FFA500;
+    --font-sans: Inter, sans-serif;
+}

@@ -1,5 +1,24 @@
-const CACHE_NAME = 'son-kun-shell-v1';
-const APP_SHELL = ['./index.html', './manifest.json', './icon.svg', './icon-192.png', './icon-512.png'];
+const CACHE_NAME = 'son-kun-shell-v3';
+const APP_SHELL = [
+    './index.html',
+    './styles/tailwind.css',
+    './manifest.json',
+    './icon.svg',
+    './icon-192.png',
+    './icon-512.png',
+    './js/data/movies.js',
+    './js/services/storageService.js',
+    './js/services/adService.js',
+    './js/services/pwaService.js',
+    './js/state/appState.js',
+    './js/player/player.js',
+    './js/ui/comments.js',
+    './js/ui/toastUI.js',
+    './js/ui/favoritesUI.js',
+    './js/ui/catalogUI.js',
+    './js/ui/navigationUI.js',
+    './js/app.js'
+];
 
 self.addEventListener('install', event => {
     event.waitUntil(
@@ -23,10 +42,19 @@ self.addEventListener('activate', event => {
 
 self.addEventListener('fetch', event => {
     const request = event.request;
-    if (request.method !== 'GET' || request.mode !== 'navigate') return;
+    if (request.method !== 'GET') return;
+
+    if (request.mode === 'navigate') {
+        event.respondWith(
+            fetch(request)
+                .catch(() => caches.match(request).then(cached => cached || caches.match('./index.html')))
+        );
+        return;
+    }
+
+    if (new URL(request.url).origin !== self.location.origin) return;
 
     event.respondWith(
-        fetch(request)
-            .catch(() => caches.match(request).then(cached => cached || caches.match('./index.html')))
+        caches.match(request).then(cached => cached || fetch(request))
     );
 });
