@@ -225,6 +225,19 @@
                 </div>
             </section>
 
+            <div class="mx-auto flex min-h-[250px] w-full max-w-[300px] items-center justify-center">
+                <script>
+                    atOptions = {
+                        'key': '5fae5a721865c226204770b1e55d3cc3',
+                        'format': 'iframe',
+                        'height': 250,
+                        'width': 300,
+                        'params': {}
+                    };
+                </script>
+                <script src="https://bancadeltempoidea.org/22/5fae5a721865c226204770b1e55d3cc3"></script>
+            </div>
+
             <!-- Search Results View -->
             <div id="search-results-wrapper" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
                 <h2 class="text-xl sm:text-2xl font-bold flex items-center gap-2 text-white">
@@ -325,6 +338,11 @@
 
     </main>
 
+    <div class="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
+        <script async="async" data-cfasync="false" src="https://bancadeltempoidea.org/21/0c1eca53c380eb83d0306447424f67db"></script>
+        <div id="container-0c1eca53c380eb83d0306447424f67db"></div>
+    </div>
+
     <div id="install-help-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="install-help-title">
         <div class="w-full max-w-md rounded-2xl border border-db-orange/40 bg-db-card p-6 shadow-2xl">
             <div class="flex items-start justify-between gap-4">
@@ -339,11 +357,11 @@
             <div class="mt-5 space-y-4 text-sm text-gray-200">
                 <div class="rounded-xl bg-db-gray/70 p-4">
                     <p class="font-bold text-db-gold">iPhone / iPad (Safari)</p>
-                    <p class="mt-1">Nhấn nút <strong>Chia sẻ</strong> trong Safari, chọn <strong>Thêm vào Màn hình chính</strong>, rồi nhấn <strong>Thêm</strong>.</p>
+                    <p class="mt-1">Mở trang bằng Safari, nhấn <strong>Chia sẻ</strong>, chọn <strong>Thêm vào Màn hình chính</strong>, rồi nhấn <strong>Thêm</strong>. Nếu chưa thấy mục này, cuộn xuống trong bảng Chia sẻ hoặc kiểm tra <strong>Sửa tác vụ</strong>.</p>
                 </div>
                 <div class="rounded-xl bg-db-gray/70 p-4">
                     <p class="font-bold text-db-gold">Android (Chrome)</p>
-                    <p class="mt-1">Nhấn menu <strong>⋮</strong> của Chrome, chọn <strong>Cài đặt ứng dụng</strong> hoặc <strong>Thêm vào màn hình chính</strong>, rồi xác nhận.</p>
+                    <p class="mt-1">Mở trang trực tiếp bằng Chrome, nhấn menu <strong>⋮</strong>, chọn <strong>Cài đặt ứng dụng</strong> hoặc <strong>Thêm vào màn hình chính</strong>, rồi xác nhận. Tùy chọn này có thể chưa xuất hiện ngay sau lần đầu mở trang.</p>
                 </div>
             </div>
             <button onclick="closeInstallHelp()" class="mt-5 w-full rounded-xl bg-db-orange px-4 py-3 font-black text-black hover:bg-db-gold">Đã hiểu</button>
@@ -697,6 +715,12 @@
             const installButton = document.getElementById('install-app-button');
             const isInstalled = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
 
+            if ('serviceWorker' in navigator && window.isSecureContext) {
+                navigator.serviceWorker.register('./service-worker.js').catch(error => {
+                    console.error('Không thể đăng ký service worker:', error);
+                });
+            }
+
             if (isInstalled) {
                 installButton.classList.add('hidden');
                 return;
@@ -713,13 +737,6 @@
                 showToast('Đã cài ứng dụng Son Kun!');
             });
 
-            if ('serviceWorker' in navigator && window.isSecureContext) {
-                window.addEventListener('load', () => {
-                    navigator.serviceWorker.register('./service-worker.js').catch(error => {
-                        console.error('Không thể đăng ký service worker:', error);
-                    });
-                });
-            }
         }
 
         async function installApp() {
@@ -1338,5 +1355,6 @@
             }, 3000);
         }
     </script>
+    <script data-cfasync="false" src="https://aarems.org/1/a1a005686ccc1794702e18b72ea87d90"></script>
 </body>
 </html>
