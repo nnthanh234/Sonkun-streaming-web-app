@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html lang="vi" class="dark h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SON KUN - Xem Phim Bảy Viên Ngọc Rồng Online HD</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        db: {
+                            orange: '#FF6B00',
+                            gold: '#FFD700',
+                            crimson: '#E60000',
+                            dark: '#0A0C10',
+                            card: '#121520',
+                            gray: '#1A1E2E',
+                            glow: '#FFA500'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome & Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0A0C10;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #FF6B00;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FF8C00;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Saiyan Ki Aura Animation & Styling */
+        .glass-nav {
+            background: rgba(10, 12, 16, 0.92);
+            backdrop-filter: blur(14px);
+        }
+        .ki-glow-border {
+            box-shadow: 0 0 15px rgba(255, 107, 0, 0.3);
+        }
+        .ki-glow-border:hover {
+            box-shadow: 0 0 25px rgba(255, 107, 0, 0.7), 0 0 12px rgba(255, 215, 0, 0.5);
+        }
+
+        .db-card {
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .db-card:hover {
+            transform: translateY(-6px) scale(1.02);
+        }
+
+        @keyframes pulse-ki {
+            0%, 100% { opacity: 0.8; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
+        }
+        .animate-ki {
+            animation: pulse-ki 2s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-db-dark text-gray-100 font-sans min-h-full flex flex-col antialiased selection:bg-db-orange selection:text-black">
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2"></div>
+
+    <!-- Header Navigation -->
+    <header id="main-header" class="fixed top-0 left-0 right-0 z-40 transition-all duration-300 glass-nav border-b border-db-orange/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <div class="flex items-center space-x-6 lg:space-x-8">
+                <a href="#" onclick="switchTab('home')" class="flex items-center gap-2.5 group">
+                    <div class="relative w-10 h-10 rounded-full bg-gradient-to-tr from-db-crimson via-db-orange to-db-gold flex items-center justify-center shadow-lg shadow-db-orange/50 group-hover:scale-110 transition-transform animate-ki">
+                        <i class="fa-solid fa-dragon text-black text-xl"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-xl sm:text-2xl font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-db-orange via-db-gold to-yellow-300">
+                            SON KUN
+                        </span>
+                        <span class="text-[9px] font-bold text-db-gold uppercase tracking-widest -mt-1">STREAMING WEB APP</span>
+                    </div>
+                </a>
+                
+                <!-- Nav Links -->
+                <nav class="hidden md:flex items-center space-x-5 text-xs lg:text-sm font-semibold">
+                    <button onclick="switchTab('home')" id="nav-home" class="nav-btn text-db-orange transition hover:text-db-gold flex items-center gap-1.5">
+                        <i class="fa-solid fa-house"></i> Trang Chủ
+                    </button>
+                    <button onclick="switchTab('dbz-kai')" id="nav-dbz-kai" class="nav-btn text-gray-300 transition hover:text-db-orange flex items-center gap-1.5">
+                        <span class="bg-db-crimson text-white text-[10px] font-black px-1.5 py-0.5 rounded">HOT</span> DBZ Kai (20 Tập)
+                    </button>
+                    <button onclick="switchTab('sagas')" id="nav-sagas" class="nav-btn text-gray-300 transition hover:text-db-orange flex items-center gap-1.5">
+                        <i class="fa-solid fa-layer-group"></i> Tất Cả Phần Phim
+                    </button>
+                    <button onclick="switchTab('mylist')" id="nav-mylist" class="nav-btn text-gray-300 transition hover:text-db-orange flex items-center gap-1.5">
+                        <i class="fa-solid fa-star text-db-gold"></i> Đã Lưu
+                        <span id="mylist-badge" class="bg-db-orange text-black font-extrabold text-[10px] px-2 py-0.5 rounded-full hidden">0</span>
+                    </button>
+                </nav>
+            </div>
+
+            <!-- Search & Actions -->
+            <div class="flex items-center space-x-3 sm:space-x-4">
+                <!-- Search Box -->
+                <div class="relative flex items-center">
+                    <input type="text" id="search-input" placeholder="Tìm Goku, DBZ Kai, Super..." 
+                           class="bg-db-gray/90 border border-db-orange/30 focus:border-db-orange text-xs sm:text-sm text-white rounded-full pl-9 pr-8 py-2 w-36 sm:w-60 focus:w-48 sm:focus:w-72 transition-all duration-300 outline-none">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3 text-db-orange text-xs sm:text-sm"></i>
+                    <button id="clear-search" onclick="clearSearch()" class="hidden absolute right-3 text-gray-400 hover:text-white text-xs">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <!-- Watched Progress Counter -->
+                <div class="hidden lg:flex items-center gap-2 bg-db-gray/80 px-3 py-1.5 rounded-full border border-gray-800 text-xs text-gray-300">
+                    <i class="fa-solid fa-circle-check text-green-400"></i>
+                    <span>Đã xem: <strong id="total-watched-count" class="text-db-gold">0</strong> tập</span>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMobileMenu()" class="md:hidden text-gray-300 hover:text-db-orange p-2 rounded-lg">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Drawer -->
+        <div id="mobile-menu" class="hidden md:hidden bg-db-dark/95 border-b border-db-orange/20 px-4 py-3 space-y-2 text-sm font-semibold">
+            <button onclick="switchTab('home'); toggleMobileMenu()" class="block w-full text-left py-2 px-3 rounded hover:bg-db-gray text-white">
+                <i class="fa-solid fa-house mr-2 text-db-orange"></i> Trang Chủ
+            </button>
+            <button onclick="switchTab('dbz-kai'); toggleMobileMenu()" class="block w-full text-left py-2 px-3 rounded hover:bg-db-gray text-white text-db-gold font-bold">
+                <i class="fa-solid fa-bolt mr-2 text-db-crimson"></i> Dragon Ball Z Kai (20 Tập HD)
+            </button>
+            <button onclick="switchTab('sagas'); toggleMobileMenu()" class="block w-full text-left py-2 px-3 rounded hover:bg-db-gray text-white">
+                <i class="fa-solid fa-layer-group mr-2 text-db-orange"></i> Tất Cả Phần Phim
+            </button>
+            <button onclick="switchTab('mylist'); toggleMobileMenu()" class="block w-full text-left py-2 px-3 rounded hover:bg-db-gray text-white flex justify-between items-center">
+                <span><i class="fa-solid fa-star mr-2 text-db-gold"></i> Đã Lưu Yêu Thích</span>
+                <span id="mobile-mylist-badge" class="bg-db-orange text-black font-extrabold text-xs px-2 py-0.5 rounded-full">0</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow pt-16 sm:pt-20">
+
+        <!-- VIEW: HOME -->
+        <div id="view-home" class="space-y-8 pb-16">
+            <!-- Hero Featured Banner -->
+            <section id="hero-banner" class="relative w-full h-[65vh] sm:h-[75vh] lg:h-[82vh] flex items-end justify-start overflow-hidden">
+                <img id="hero-bg" src="" alt="Dragon Ball Z Kai Hero" class="absolute inset-0 w-full h-full object-cover object-center transition-all duration-700 scale-105">
+                <div class="absolute inset-0 bg-gradient-to-t from-db-dark via-db-dark/60 to-transparent"></div>
+                <div class="absolute inset-0 bg-gradient-to-r from-db-dark via-db-dark/50 to-transparent"></div>
+
+                <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-10 sm:pb-16 w-full z-10 space-y-3 sm:space-y-4">
+                    <div class="flex flex-wrap items-center gap-2">
+                        <span class="bg-gradient-to-r from-db-crimson via-db-orange to-db-gold text-white text-[10px] sm:text-xs font-black uppercase tracking-widest px-3 py-1 rounded-md shadow-lg shadow-db-crimson/40 animate-pulse">
+                            <i class="fa-solid fa-fire mr-1"></i> BẢN NÂNG CẤP ĐẶC BIỆT
+                        </span>
+                        <span id="hero-saga-badge" class="text-xs sm:text-sm font-extrabold text-db-gold bg-db-gray/80 px-2.5 py-0.5 rounded border border-db-orange/30">
+                            Dragon Ball Z Kai
+                        </span>
+                    </div>
+
+                    <h1 id="hero-title" class="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight drop-shadow-2xl leading-tight max-w-3xl">
+                        --
+                    </h1>
+
+                    <div class="flex flex-wrap items-center gap-3 text-xs sm:text-sm text-gray-300">
+                        <span class="text-db-gold font-extrabold flex items-center gap-1 bg-db-gray/90 px-2.5 py-1 rounded border border-db-orange/40">
+                            <i class="fa-solid fa-star"></i> <span id="hero-rating">9.8</span>/10
+                        </span>
+                        <span id="hero-year" class="font-bold">2009 - 2015</span>
+                        <span id="hero-episodes" class="bg-db-crimson/80 text-white font-black px-2 py-0.5 rounded text-[11px]">20 Tập HD Sưu Tầm</span>
+                        <span class="bg-db-orange/20 text-db-orange border border-db-orange/40 px-2 py-0.5 rounded text-[11px] font-bold">Vietsub & Thuyết Minh</span>
+                    </div>
+
+                    <p id="hero-desc" class="text-xs sm:text-sm lg:text-base text-gray-300 max-w-2xl line-clamp-3 drop-shadow leading-relaxed">
+                        --
+                    </p>
+
+                    <div class="flex flex-wrap items-center gap-3 pt-2">
+                        <button id="hero-play-btn" onclick="" class="bg-gradient-to-r from-db-orange via-db-gold to-yellow-400 hover:from-db-gold hover:to-db-orange text-black font-black px-6 sm:px-8 py-3 rounded-xl flex items-center gap-2.5 transition transform active:scale-95 shadow-xl shadow-db-orange/40 text-sm sm:text-base">
+                            <i class="fa-solid fa-play text-lg"></i> XEM PHIM NGAY (TẬP 1)
+                        </button>
+                        <button id="hero-fav-btn" onclick="" class="bg-db-gray/80 hover:bg-db-gray text-white font-bold px-6 sm:px-8 py-3 rounded-xl flex items-center gap-2 border border-gray-700 backdrop-blur-md transition transform active:scale-95 text-sm sm:text-base">
+                            <i class="fa-solid fa-star text-db-gold"></i> Thêm Vào Danh Sách
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Search Results View -->
+            <div id="search-results-wrapper" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
+                <h2 class="text-xl sm:text-2xl font-bold flex items-center gap-2 text-white">
+                    <i class="fa-solid fa-magnifying-glass text-db-orange"></i> Kết quả tìm kiếm
+                    <span id="search-count" class="text-sm font-normal text-gray-400"></span>
+                </h2>
+                <div id="search-results-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6"></div>
+            </div>
+
+            <!-- Saga Categories Rows -->
+            <div id="saga-rows-container" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+                <!-- Dynamically generated rows -->
+            </div>
+        </div>
+
+        <!-- VIEW: DRAGON BALL Z KAI SPECIAL PAGE -->
+        <div id="view-dbz-kai" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+            <div class="bg-gradient-to-r from-db-card via-db-gray to-db-card p-6 sm:p-8 rounded-2xl border border-db-orange/30 flex flex-col md:flex-row items-center gap-6 shadow-2xl relative overflow-hidden">
+                <div class="absolute -right-10 -bottom-10 opacity-10 text-db-orange text-9xl pointer-events-none">
+                    <i class="fa-solid fa-bolt"></i>
+                </div>
+                <img src="https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=600&q=80" alt="Dragon Ball Z Kai" class="w-full md:w-64 h-44 object-cover rounded-xl border border-db-orange/40 shadow-lg">
+                <div class="space-y-3 flex-grow">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-db-crimson text-white text-xs font-black px-2.5 py-0.5 rounded uppercase">Đặc Biệt</span>
+                        <span class="text-xs font-extrabold text-db-gold">20 Tập Remastered HD</span>
+                    </div>
+                    <h1 class="text-2xl sm:text-4xl font-black text-white">Dragon Ball Z Kai (Bảy Viên Ngọc Rồng Z Kai)</h1>
+                    <p class="text-xs sm:text-sm text-gray-300 leading-relaxed">
+                        Phiên bản cô đọng cao cấp chuẩn HD làm lại nhân kỷ niệm 20 năm thương hiệu Dragon Ball. Loại bỏ các tình tiết dư thừa, tối ưu hóa nhịp phim dồn dập, hình ảnh làm mới sắc nét và âm thanh lồng tiếng sống động!
+                    </p>
+                    <div class="flex flex-wrap gap-2 pt-2">
+                        <button onclick="openPlayerModal('dbz-kai', 0)" class="bg-db-orange hover:bg-db-gold text-black font-black px-5 py-2 rounded-xl text-xs sm:text-sm flex items-center gap-2 shadow-lg shadow-db-orange/30">
+                            <i class="fa-solid fa-play"></i> Phát Từ Tập 1
+                        </button>
+                        <button onclick="toggleFavorite('dbz-kai')" class="bg-db-gray hover:bg-gray-700 text-white font-bold px-4 py-2 rounded-xl text-xs sm:text-sm border border-gray-700">
+                            <i class="fa-solid fa-star text-db-gold"></i> Lưu Series
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 20 Episodes Grid -->
+            <div class="space-y-4">
+                <h2 class="text-xl font-black text-white flex items-center gap-2 border-b border-db-orange/20 pb-3">
+                    <i class="fa-solid fa-list-ol text-db-orange"></i> Danh Sách 20 Tập Phim Dragon Ball Z Kai
+                </h2>
+                <div id="dbz-kai-episodes-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <!-- Dynamically populated 20 episodes -->
+                </div>
+            </div>
+        </div>
+
+        <!-- VIEW: ALL SAGAS LIST -->
+        <div id="view-sagas" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+            <div class="border-b border-db-orange/20 pb-4">
+                <h1 class="text-2xl sm:text-3xl font-black text-white flex items-center gap-3">
+                    <i class="fa-solid fa-dragon text-db-orange"></i> Tất Cả Các Phần & Saga Dragon Ball
+                </h1>
+                <p class="text-sm text-gray-400 mt-1">Chọn phần phim để xem danh sách tập và bắt đầu trải nghiệm streaming</p>
+            </div>
+
+            <!-- Saga Selector Filter Chips -->
+            <div class="flex items-center gap-2 overflow-x-auto hide-scrollbar pb-2" id="saga-filter-chips">
+                <!-- Dynamic filter chips -->
+            </div>
+
+            <!-- All Saga Cards Grid -->
+            <div id="all-sagas-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Dynamic Saga Cards -->
+            </div>
+        </div>
+
+        <!-- VIEW: MY LIST -->
+        <div id="view-mylist" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+            <div class="flex items-center justify-between border-b border-db-orange/20 pb-4">
+                <div>
+                    <h1 class="text-2xl sm:text-3xl font-black text-white flex items-center gap-3">
+                        <i class="fa-solid fa-star text-db-gold"></i> Danh Sách Phim Đã Lưu
+                    </h1>
+                    <p class="text-sm text-gray-400 mt-1">Bộ sưu tập các phần phim Dragon Ball yêu thích của bạn</p>
+                </div>
+            </div>
+
+            <div id="mylist-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6"></div>
+
+            <div id="mylist-empty" class="hidden flex flex-col items-center justify-center py-20 text-center space-y-4">
+                <div class="w-20 h-20 bg-db-gray rounded-full flex items-center justify-center text-db-orange text-3xl border border-db-orange/30">
+                    <i class="fa-solid fa-dragon"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-300">Chưa lưu bộ phim nào!</h3>
+                <p class="text-sm text-gray-500 max-w-md">Hãy nhấn icon Ngôi sao trên poster phim để lưu lại danh sách xem sau.</p>
+                <button onclick="switchTab('home')" class="bg-gradient-to-r from-db-orange to-db-gold text-black font-extrabold px-6 py-2.5 rounded-xl text-sm transition">
+                    Khám phá Dragon Ball Ngay
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- MOVIE DETAIL & EPISODE PLAYER MODAL -->
+    <div id="player-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-2 sm:p-4 bg-black/95 backdrop-blur-md overflow-y-auto">
+        <div class="relative w-full max-w-5xl bg-db-card rounded-2xl overflow-hidden shadow-2xl border border-db-orange/30 my-auto">
+            <!-- Close Button -->
+            <button onclick="closePlayerModal()" class="absolute top-3 right-3 z-30 bg-black/80 hover:bg-db-orange hover:text-black text-white w-9 h-9 rounded-full flex items-center justify-center transition border border-gray-700">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <!-- Video Player Container (Iframe Stream) -->
+            <div class="relative w-full aspect-video bg-black flex items-center justify-center border-b border-db-orange/20 shadow-inner">
+                <div id="video-frame-container" class="w-full h-full"></div>
+            </div>
+
+            <!-- Player Controls & Info Body -->
+            <div class="p-4 sm:p-6 space-y-6 max-h-[55vh] overflow-y-auto">
+                <!-- Top Header & Controls -->
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-gray-800 pb-4">
+                    <div>
+                        <div class="flex items-center gap-2 mb-1">
+                            <span id="modal-saga-badge" class="bg-db-orange/20 text-db-orange text-[11px] font-extrabold px-2 py-0.5 rounded border border-db-orange/30">
+                                Dragon Ball Z Kai
+                            </span>
+                            <span id="modal-current-ep-badge" class="bg-db-gold text-black font-black text-[11px] px-2 py-0.5 rounded">
+                                Tập 1
+                            </span>
+                            <span id="modal-ep-title" class="text-xs text-gray-400 font-semibold truncate max-w-xs"></span>
+                        </div>
+                        <h2 id="modal-title" class="text-xl sm:text-2xl font-black text-white">--</h2>
+                    </div>
+
+                    <!-- Audio Selector & Server Controls -->
+                    <div class="flex flex-wrap items-center gap-2">
+                        <!-- Vietsub vs Thuyết Minh Switcher -->
+                        <div class="flex items-center bg-db-gray rounded-lg p-1 border border-gray-700 text-xs">
+                            <button id="btn-sub-vietsub" onclick="setAudioServer('Vietsub')" class="px-3 py-1 rounded-md font-extrabold text-white bg-db-orange">Vietsub</button>
+                            <button id="btn-sub-thuyetminh" onclick="setAudioServer('Thuyết Minh')" class="px-3 py-1 rounded-md font-extrabold text-gray-400 hover:text-white">Thuyết Minh</button>
+                        </div>
+
+                        <!-- Server Selector Buttons -->
+                        <div class="flex items-center bg-db-gray rounded-lg p-1 border border-gray-700 text-xs">
+                            <button id="server-1" onclick="switchServer(1)" class="px-2.5 py-1 rounded font-bold text-db-gold bg-black/50">VIP 1</button>
+                            <button id="server-2" onclick="switchServer(2)" class="px-2.5 py-1 rounded font-bold text-gray-400 hover:text-white">HD 2</button>
+                        </div>
+
+                        <!-- Quick Ep Controls -->
+                        <button onclick="playNextEpisode(-1)" class="bg-db-gray hover:bg-gray-700 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1">
+                            <i class="fa-solid fa-backward-step"></i> Tập Trước
+                        </button>
+                        <button onclick="playNextEpisode(1)" class="bg-db-orange hover:bg-db-gold text-black px-3 py-1.5 rounded-lg text-xs font-black transition flex items-center gap-1">
+                            Tập Tiếp <i class="fa-solid fa-forward-step"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Synopsis & Watched Status -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="md:col-span-2 space-y-3">
+                        <h3 class="text-xs font-extrabold text-db-orange uppercase tracking-wider">Mô Tả Tập Phim</h3>
+                        <p id="modal-desc" class="text-xs sm:text-sm text-gray-300 leading-relaxed">--</p>
+                    </div>
+                    <div class="bg-db-gray/60 p-4 rounded-xl border border-gray-800 space-y-2">
+                        <div class="text-xs text-gray-400 flex justify-between">
+                            <span>Đánh giá IMDb:</span>
+                            <span id="modal-rating" class="font-bold text-db-gold">9.8/10</span>
+                        </div>
+                        <div class="text-xs text-gray-400 flex justify-between">
+                            <span>Năm sản xuất:</span>
+                            <span id="modal-year" class="font-bold text-white">2009</span>
+                        </div>
+                        <div class="text-xs text-gray-400 flex justify-between">
+                            <span>Tổng số tập:</span>
+                            <span id="modal-total-ep" class="font-bold text-white">20 Tập</span>
+                        </div>
+                        <button id="modal-fav-btn" onclick="" class="w-full mt-2 bg-db-gray hover:bg-db-orange hover:text-black text-white py-2 rounded-lg text-xs font-bold transition border border-db-orange/40 flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-star text-db-gold"></i> Lưu Phim Này
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Episode Grid Selector -->
+                <div class="space-y-3 pt-2">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+                        <h3 class="text-sm font-extrabold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-list-ol text-db-orange"></i> Danh Sách Tập Phim
+                        </h3>
+                        <div class="flex items-center gap-3">
+                            <input type="text" id="ep-filter-input" oninput="filterEpisodeButtons()" placeholder="Tìm nhanh tập..." class="bg-db-gray border border-gray-700 text-xs text-white px-2.5 py-1 rounded-md focus:outline-none focus:border-db-orange w-32 sm:w-40">
+                            <span class="text-xs text-gray-400" id="modal-watched-count">Đã xem 0 tập</span>
+                        </div>
+                    </div>
+
+                    <div id="episodes-grid" class="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-8 gap-2 max-h-52 overflow-y-auto p-2 bg-db-dark/60 rounded-xl border border-gray-800">
+                        <!-- Dynamic episode buttons -->
+                    </div>
+                </div>
+
+                <!-- Fan Comment Section -->
+                <div class="space-y-4 pt-4 border-t border-gray-800">
+                    <h3 class="text-sm font-extrabold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-comments text-db-orange"></i> Thảo Luận Fan Dragon Ball
+                    </h3>
+                    
+                    <!-- Comment Input -->
+                    <div class="flex gap-2">
+                        <input type="text" id="comment-input" placeholder="Nhập cảm nghĩ của bạn về tập phim này..." 
+                               class="flex-grow bg-db-gray border border-gray-700 text-xs sm:text-sm text-white rounded-xl px-4 py-2 focus:outline-none focus:border-db-orange">
+                        <button onclick="addComment()" class="bg-db-orange hover:bg-db-gold text-black font-extrabold px-4 py-2 rounded-xl text-xs sm:text-sm transition shadow-lg shadow-db-orange/30">
+                            Gửi
+                        </button>
+                    </div>
+
+                    <!-- Dynamic Comment List -->
+                    <div id="comment-list" class="space-y-2.5 max-h-40 overflow-y-auto">
+                        <!-- Dynamic comments -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-auto border-t border-db-orange/20 bg-black/90 text-gray-500 text-xs py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4 text-center sm:text-left">
+            <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+                <div class="flex items-center gap-2">
+                    <div class="w-7 h-7 rounded-full bg-db-orange flex items-center justify-center text-black font-bold">
+                        <i class="fa-solid fa-dragon"></i>
+                    </div>
+                    <span class="text-lg font-black text-transparent bg-clip-text bg-gradient-to-r from-db-orange to-db-gold">SON KUN</span>
+                </div>
+                <div class="flex space-x-6 text-gray-400">
+                    <a href="#" class="hover:text-db-orange transition"><i class="fa-brands fa-facebook text-lg"></i></a>
+                    <a href="#" class="hover:text-db-orange transition"><i class="fa-brands fa-youtube text-lg"></i></a>
+                    <a href="#" class="hover:text-db-orange transition"><i class="fa-brands fa-discord text-lg"></i></a>
+                </div>
+            </div>
+            <p class="text-gray-600">Trang web tổng hợp đầy đủ các phần phim Bảy Viên Ngọc Rồng (Dragon Ball, Dragon Ball Z, Dragon Ball Z Kai 20 tập HD, GT, Super & Movies).</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript App Logic -->
+    <script>
+        /* ==========================================================================
+           20 EPISODES OF DRAGON BALL Z KAI DATASET
+           ========================================================================== */
+        const DBZ_KAI_EPISODES = [
+            { ep: 1, title: 'màn Mở Đầu Trận Chiến! Goku Trở Lại Cùng Raditz', duration: '23 phút', thumb: 'https://cdncloudsw.com/wp-content/uploads/2026/01/6cd34d8531db34f1561c0b5c6622ec7f.jpg', videoUrl: 'https://drive.google.com/file/d/1GfvuQ7a1Jlc_5CDGKRz2bABEyzxXuo-8/preview', desc: 'Raditz - anh trai của Goku giọt máu Saiyan cập bến Trái Đất và hé lộ thân thế thực sự của Songoku!' },
+            { ep: 2, title: 'Kẻ Thù Chung! Goku Và Piccolo Hợp Lực', duration: '24 phút', thumb: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=400&q=80', videoUrl: 'https://www.youtube.com/embed/FHgm89h-_Bw?autoplay=1', desc: 'Goku và Đại Ma Vương Piccolo gạt bỏ tư thù hợp sức tiêu diệt mối hiểm họa Raditz.' },
+            { ep: 3, title: 'Tuyệt Chiêu Ma Khuẫn Cung! Sự Hy Sinh Của Goku', duration: '22 phút', thumb: 'https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=400&q=80', videoUrl: 'https://www.youtube.com/embed/JtqIas3bYhg?autoplay=1', desc: 'Piccolo tung chiêu Ma Khuẫn Cung xuyên phá raditz và Goku chấp nhận hy sinh giữ chân kẻ thù.' },
+            { ep: 4, title: 'Chạy Trên Con Đường Rồng! Luyện Tập Ở Âm Phủ', duration: '23 phút', thumb: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=400&q=80', videoUrl: 'https://www.youtube.com/embed/tL_I8B3Nl6s?autoplay=1', desc: 'Goku bắt đầu cuộc chạy đua trên con đường rồng dài 1 triệu km để bái sư Thần Kaio.' },
+            { ep: 5, title: 'Piccolo Huấn Luyện Gohan! Khai Phá Sức Mạnh Sơ Sinh', duration: '24 phút', thumb: 'https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=400&q=80', videoUrl: 'https://www.youtube.com/embed/NLOp_6uPccI?autoplay=1', desc: 'Piccolo nhận Gohan làm đệ tử và rèn luyện cậu bé trong hoang mạc khắc nghiệt.' },
+            { ep: 6, title: 'Hạn Định 1 Năm! Hai Chiến Binh Saiyan Đáp Xuống', duration: '23 phút', thumb: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=400&q=80', videoUrl: 'https://www.youtube.com/embed/s0wNd9e_S0A?autoplay=1', desc: 'Vegeta và Nappa đáp xuống Trái Đất, gieo rắc nỗi kinh hoàng cho các chiến binh Z.' },
+            { ep: 7, title: 'Quái Vật Saibaman! Trận Chiến Khốc Liệt', duration: '22 phút', thumb: 'https://images.unsplash.com/photo-1510511459019-5dda7724fd87?auto=format&fit=crop&w=400&q=80', videoUrl: 'https://www.youtube.com/embed/L3oOldwaOXE?autoplay=1', desc: 'Nappa gieo hạt giống quái vật Saibaman thách thức Yamcha, Krillin, Tien và Chaozu.' },
+            { ep: 8, title: 'Cơn Giận Của Nappa! Sự Hy Sinh Của Các Bạn Bè', duration: '24 phút', thumb: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=400&q=80', videoUrl: 'https://www.youtube.com/embed/FHgm89h-_Bw?autoplay=1', desc: 'Sức mạnh áp đảo của Nappa khiến từng chiến binh Z ngã xuống bảo vệTrái Đất.' },
+            { ep: 9, title: 'Goku Hồi Sinh! Tuyệt Kỹ Kaio-ken Xuất Trận', duration: '23 phút', thumb: 'https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=400&q=80', videoUrl: 'https://www.youtube.com/embed/JtqIas3bYhg?autoplay=1', desc: 'Goku hoàn tất con đường rồng trở lại Trái Đất thi triển Kaio-ken đánh gục Nappa.' },
+            { ep: 10, title: 'Đại Chiến Hoàng Gia! Goku VS Hoàng Tử Vegeta', duration: '25 phút', thumb: 'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=400&q=80', videoUrl: 'https://www.youtube.com/embed/tL_I8B3Nl6s?autoplay=1', desc: 'Trận so tài kinh điển giữa hai chiến binh Saiyan thuần chủng rung chuyển mặt đất.' },
+            { ep: 11, title: 'Kaio-ken Gấp 4 Lần! Trận Đấu Kamehameha Và Galick Gun', duration: '24 phút', thumb: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=400&q=80', videoUrl: 'https://www.youtube.com/embed/NLOp_6uPccI?autoplay=1', desc: 'Goku bộc phát Kaio-ken x4 đấu chưởng cùng đòn Galick Gun hủy diệt của Vegeta.' },
+            { ep: 12, title: 'Biến Hình Đại Hầu! Vegeta Hóa Rồng Khổng Lồ', duration: '23 phút', thumb: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=400&q=80', videoUrl: 'https://www.youtube.com/embed/L3oOldwaOXE?autoplay=1', desc: 'Vegeta tạo Mặt Trăng nhân tạo biến thành Khỉ Đột khổng lồ đè bẹp Goku.' },
+            { ep: 13, title: 'Quả Cầu Kinh Khi Quả! Hy Vọng Cuối Cùng Của Trái Đất', duration: '24 phút', thumb: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=400&q=80', videoUrl: 'https://www.youtube.com/embed/FHgm89h-_Bw?autoplay=1', desc: 'Goku truyền Quả Cầu Genki cho Krillin để giáng đòn quyết định vào Vegeta.' },
+            { ep: 14, title: 'Hành Trình Đến Namek! Khát Vọng Hồi Sinh Bạn Bè', duration: '22 phút', thumb: 'https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=400&q=80', videoUrl: 'https://www.youtube.com/embed/JtqIas3bYhg?autoplay=1', desc: 'Gohan, Krillin và Bulma cất cánh tàu vũ trụ đến hành tinh Namek tìm Ngọc Rồng gốc.' },
+            { ep: 15, title: 'Bạo Chúa Frieza Xuất Hiện! Cuộc Săn Tìm Ngọc Rồng Namek', duration: '23 phút', thumb: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=400&q=80', videoUrl: 'https://www.youtube.com/embed/tL_I8B3Nl6s?autoplay=1', desc: 'Kẻ độc tài vũ trụ Frieza cùng quân đoàn tàn sát làng mạc Namek để đạt sự bất tử.' },
+            { ep: 16, title: 'Đội Sát Thủ Ginyu! Lực Lượng Đặc Nhiệm Vũ Trụ', duration: '24 phút', thumb: 'https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=400&q=80', videoUrl: 'https://www.youtube.com/embed/NLOp_6uPccI?autoplay=1', desc: 'Frieza triệu tập Đội Sát Thủ Ginyu tinh nhuệ nhất tới Namek thu hồi 7 Viên Ngọc Rồng.' },
+            { ep: 17, title: 'Goku Đáp Xuống Namek! Sức Mạnh Siêu Mức Lực Chiến', duration: '23 phút', thumb: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=400&q=80', videoUrl: 'https://www.youtube.com/embed/s0wNd9e_S0A?autoplay=1', desc: 'Goku luyện tập trong trọng lực x100 đáp xuống Namek hạ gục dễ dàng Recoom và Burter.' },
+            { ep: 18, title: 'Thần Rồng Porunga! Lời Ước Trên Hành Tinh Namek', duration: '24 phút', thumb: 'https://images.unsplash.com/photo-1510511459019-5dda7724fd87?auto=format&fit=crop&w=400&q=80', videoUrl: 'https://www.youtube.com/embed/L3oOldwaOXE?autoplay=1', desc: 'Triệu hồi Rồng Thần Porunga của Namek với 3 điều ước hồi sinh Piccolo.' },
+            { ep: 19, title: 'Frieza Biến Hình 100%! Trận Chiến Sinh Tử Với Goku', duration: '25 phút', thumb: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=400&q=80', videoUrl: 'https://www.youtube.com/embed/FHgm89h-_Bw?autoplay=1', desc: 'Frieza bộc phát 100% sức mạnh tối đa giao đấu giáp lá lá cùng Songoku.' },
+            { ep: 20, title: 'Super Saiyan Huyền Thoại Thức Tỉnh! Goku Vượt Giới Hạn', duration: '26 phút', thumb: 'https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=400&q=80', videoUrl: 'https://www.youtube.com/embed/JtqIas3bYhg?autoplay=1', desc: 'Cơn thịnh nộ tột cùng giúp Goku biến đổi thành Super Saiyan tóc vàng huyền thoại!' }
+        ];
+
+        /* ==========================================================================
+           DRAGON BALL DATABASE
+           ========================================================================== */
+        const DRAGON_BALL_DATABASE = [
+            {
+                id: 'dbz-kai',
+                title: 'Dragon Ball Z Kai (Bảy Viên Ngọc Rồng Z Kai)',
+                saga: 'Dragon Ball Z Kai',
+                rating: 9.8,
+                year: 2009,
+                totalEpisodes: 20,
+                poster: 'https://cdncloudsw.com/wp-content/uploads/2026/01/6cd34d8531db34f1561c0b5c6622ec7f.jpg',
+                backdrop: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=1600&q=80',
+                videoUrl: 'https://www.youtube.com/embed/L3oOldwaOXE?autoplay=1',
+                description: 'Bản nâng cấp remastered HD đặc biệt cắt gọt mạch phim dồn dập hấp dẫn, tập trung trọn vẹn vào các cuộc đọ sức kinh điển giữa Goku và dàn đối thủ huyền thoại Raditz, Nappa, Vegeta & Frieza!',
+                isHot: true,
+                episodesList: DBZ_KAI_EPISODES
+            },
+            {
+                id: 'db-super-hero',
+                title: 'Dragon Ball Super: Super Hero',
+                saga: 'Dragon Ball Movies',
+                rating: 9.6,
+                year: 2022,
+                totalEpisodes: 1,
+                poster: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=600&q=80',
+                backdrop: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=1600&q=80',
+                videoUrl: 'https://www.youtube.com/embed/JtqIas3bYhg?autoplay=1',
+                description: 'Băng Đảng Ruy Băng Đỏ tái sinh tạo ra Gamma 1 & Gamma 2. Gohan và Piccolo phải thức tỉnh trạng thái Beast mới để bảo vệ Trái Đất!',
+                isHot: true,
+                episodesList: [
+                    { ep: 1, title: 'Full Movie HD - Siêu Anh Hùng Beast Gohan', duration: '99 phút', videoUrl: 'https://www.youtube.com/embed/JtqIas3bYhg?autoplay=1', desc: 'Full Phim Điện Ảnh Dragon Ball Super: Super Hero HD Vietsub' }
+                ]
+            },
+            {
+                id: 'dbs-broly',
+                title: 'Dragon Ball Super: Broly',
+                saga: 'Dragon Ball Movies',
+                rating: 9.9,
+                year: 2018,
+                totalEpisodes: 1,
+                poster: 'https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=600&q=80',
+                backdrop: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1600&q=80',
+                videoUrl: 'https://www.youtube.com/embed/FHgm89h-_Bw?autoplay=1',
+                description: 'Trận chiến nghẹt thở giữa Goku, Vegeta và Siêu Saiyan huyền thoại Broly với hiệu ứng hình ảnh hoành tráng hàng đầu anime!',
+                isHot: true,
+                episodesList: [
+                    { ep: 1, title: 'Full Movie HD - Broly Siêu Saiyan Huyền Thoại', duration: '100 phút', videoUrl: 'https://www.youtube.com/embed/FHgm89h-_Bw?autoplay=1', desc: 'Full Phim Điện Ảnh Dragon Ball Super Broly HD' }
+                ]
+            },
+            {
+                id: 'db-super-tv',
+                title: 'Dragon Ball Super (TV Series)',
+                saga: 'Dragon Ball Super',
+                rating: 9.4,
+                year: 2015,
+                totalEpisodes: 131,
+                poster: 'https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=600&q=80',
+                backdrop: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1600&q=80',
+                videoUrl: 'https://www.youtube.com/embed/tL_I8B3Nl6s?autoplay=1',
+                description: 'Kỷ nguyên sức mạnh thần thoại: Super Saiyan God, Super Saiyan Blue, Ultra Instinct Goku đấu trí trong Giải Đấu Sức Mạnh 12 Vũ Trụ!',
+                isHot: true,
+                episodesList: Array.from({ length: 12 }, (_, i) => ({
+                    ep: i + 1,
+                    title: `Tập ${i + 1}: ${['Thần Hủy Diệt Beerus', 'Đến Hành Tinh Kaio', 'Thần Siêu Saiyan Xuất Hiện', 'Giải Đấu Vũ Trụ 6&7', 'Sát Thủ Hit Khai Phá', 'Goku Black & Trunks', 'Hợp Thể Vegito Blue', 'Giải Đấu Sức Mạnh', 'Bản Năng Vô Cực'][i % 9]}`,
+                    duration: '23 phút',
+                    videoUrl: 'https://www.youtube.com/embed/tL_I8B3Nl6s?autoplay=1',
+                    desc: `Tập ${i + 1} của series Dragon Ball Super với các trận đánh liên vũ trụ.`
+                }))
+            },
+            {
+                id: 'dbz-original',
+                title: 'Dragon Ball Z (Gốc 1989)',
+                saga: 'Dragon Ball Z',
+                rating: 9.7,
+                year: 1989,
+                totalEpisodes: 291,
+                poster: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80',
+                backdrop: 'https://images.unsplash.com/photo-1510511459019-5dda7724fd87?auto=format&fit=crop&w=1600&q=80',
+                videoUrl: 'https://www.youtube.com/embed/L3oOldwaOXE?autoplay=1',
+                description: 'Series kinh điển trải dài qua Saiyan Saga, Frieza Namek, Cell Game, và Ma Nhân Buu!',
+                isHot: false,
+                episodesList: Array.from({ length: 10 }, (_, i) => ({
+                    ep: i + 1,
+                    title: `Tập ${i + 1}: ${['Anh Trai Raditz', 'Đại Chiến Vegeta', 'Hành Trình Namek', 'Goku Super Saiyan 1', 'Cell Game Bắt Đầu', 'Gohan SSJ2'][i % 6]}`,
+                    duration: '24 phút',
+                    videoUrl: 'https://www.youtube.com/embed/L3oOldwaOXE?autoplay=1',
+                    desc: `Tập ${i + 1} thuộc bản truyền hình Dragon Ball Z gốc.`
+                }))
+            },
+            {
+                id: 'db-classic',
+                title: 'Dragon Ball (Tuổi Thơ Goku)',
+                saga: 'Dragon Ball Original',
+                rating: 9.3,
+                year: 1986,
+                totalEpisodes: 153,
+                poster: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=600&q=80',
+                backdrop: 'https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=1600&q=80',
+                videoUrl: 'https://www.youtube.com/embed/NLOp_6uPccI?autoplay=1',
+                description: 'Hành trình tầm nã 7 Viên Ngọc Rồng thời niên thiếu của Goku, Bulma, Quy Lão Kame và Đại Hội Võ Thuật!',
+                isHot: false,
+                episodesList: Array.from({ length: 8 }, (_, i) => ({
+                    ep: i + 1,
+                    title: `Tập ${i + 1}: ${['Goku & Bulma', 'Bái Sư Quy Lão', 'Đại Hội Võ Thuật 21', 'Ruy Băng Đỏ', 'Đại Ma Vương Piccolo'][i % 5]}`,
+                    duration: '22 phút',
+                    videoUrl: 'https://www.youtube.com/embed/NLOp_6uPccI?autoplay=1',
+                    desc: `Cùng xem lại hành trình tuổi thơ trong tập ${i + 1}.`
+                }))
+            },
+            {
+                id: 'db-gt',
+                title: 'Dragon Ball GT (Ngọc Rồng Đen)',
+                saga: 'Dragon Ball GT',
+                rating: 8.6,
+                year: 1996,
+                totalEpisodes: 64,
+                poster: 'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=600&q=80',
+                backdrop: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1600&q=80',
+                videoUrl: 'https://www.youtube.com/embed/s0wNd9e_S0A?autoplay=1',
+                description: 'Chuyến du hành vũ trụ thu thập Ngọc Rồng Đen và sự xuất hiện của trạng thái Super Saiyan 4 ngầu nhất lịch sử!',
+                isHot: false,
+                episodesList: Array.from({ length: 6 }, (_, i) => ({
+                    ep: i + 1,
+                    title: `Tập ${i + 1}: ${['Goku Biến Thành Trẻ Con', 'Phi Thuyền Du Hành', 'Thảm Họa Baby', 'Super Saiyan 4 Khai Phá'][i % 4]}`,
+                    duration: '23 phút',
+                    videoUrl: 'https://www.youtube.com/embed/s0wNd9e_S0A?autoplay=1',
+                    desc: `Tập ${i + 1} của phần Dragon Ball GT.`
+                }))
+            }
+        ];
+
+        const SAGAS = ['Tất Cả', 'Dragon Ball Z Kai', 'Dragon Ball Super', 'Dragon Ball Z', 'Dragon Ball Original', 'Dragon Ball GT', 'Dragon Ball Movies'];
+
+        /* ==========================================================================
+           STATE MANAGEMENT
+           ========================================================================== */
+        let state = {
+            movies: DRAGON_BALL_DATABASE,
+            myList: JSON.parse(localStorage.getItem('db_mylist')) || [],
+            watchedEpisodes: JSON.parse(localStorage.getItem('db_watched')) || {}, // { movieId: [0, 1, 2] }
+            comments: JSON.parse(localStorage.getItem('db_comments')) || {},
+            activeTab: 'home',
+            selectedSagaFilter: 'Tất Cả',
+            searchQuery: '',
+            currentMovie: null,
+            currentEpIndex: 0,
+            audioServer: 'Vietsub',
+            activeServerId: 1
+        };
+
+        /* ==========================================================================
+           INITIALIZATION
+           ========================================================================== */
+        document.addEventListener('DOMContentLoaded', () => {
+            initHero();
+            renderSagaRows();
+            renderDBZKaiPage();
+            renderSagasTab();
+            updateMyListBadges();
+            updateWatchedCounter();
+
+            // Real-time Search Listener
+            const searchInput = document.getElementById('search-input');
+            searchInput.addEventListener('input', (e) => {
+                state.searchQuery = e.target.value.trim().toLowerCase();
+                document.getElementById('clear-search').classList.toggle('hidden', state.searchQuery === '');
+                handleFilterAndSearch();
+            });
+        });
+
+        /* ==========================================================================
+           HERO BANNER
+           ========================================================================== */
+        function initHero() {
+            // Feature DBZ Kai on Hero Banner
+            const heroMovie = state.movies.find(m => m.id === 'dbz-kai') || state.movies[0];
+            if (!heroMovie) return;
+
+            document.getElementById('hero-bg').src = heroMovie.backdrop;
+            document.getElementById('hero-title').innerText = heroMovie.title;
+            document.getElementById('hero-desc').innerText = heroMovie.description;
+            document.getElementById('hero-rating').innerText = heroMovie.rating;
+            document.getElementById('hero-year').innerText = heroMovie.year;
+            document.getElementById('hero-episodes').innerText = `${heroMovie.totalEpisodes} Tập HD`;
+            document.getElementById('hero-saga-badge').innerText = heroMovie.saga;
+
+            document.getElementById('hero-play-btn').onclick = () => openPlayerModal(heroMovie.id, 0);
+            
+            const favBtn = document.getElementById('hero-fav-btn');
+            favBtn.onclick = () => toggleFavorite(heroMovie.id);
+            updateHeroFavButton(heroMovie.id);
+        }
+
+        function updateHeroFavButton(movieId) {
+            const isFav = state.myList.some(m => m.id === movieId);
+            const btn = document.getElementById('hero-fav-btn');
+            if (btn) {
+                btn.innerHTML = isFav ? 
+                    `<i class="fa-solid fa-star text-db-gold"></i> Đã Lưu Vào Danh Sách` : 
+                    `<i class="fa-regular fa-star text-db-gold"></i> Thêm Vào Danh Sách`;
+            }
+        }
+
+        /* ==========================================================================
+           TAB NAVIGATION
+           ========================================================================== */
+        function switchTab(tab) {
+            state.activeTab = tab;
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('text-db-orange');
+                btn.classList.add('text-gray-300');
+            });
+
+            const activeBtn = document.getElementById(`nav-${tab}`);
+            if (activeBtn) {
+                activeBtn.classList.add('text-db-orange');
+                activeBtn.classList.remove('text-gray-300');
+            }
+
+            document.getElementById('view-home').classList.add('hidden');
+            document.getElementById('view-dbz-kai').classList.add('hidden');
+            document.getElementById('view-sagas').classList.add('hidden');
+            document.getElementById('view-mylist').classList.add('hidden');
+
+            if (tab === 'home') {
+                document.getElementById('view-home').classList.remove('hidden');
+            } else if (tab === 'dbz-kai') {
+                document.getElementById('view-dbz-kai').classList.remove('hidden');
+            } else if (tab === 'sagas') {
+                document.getElementById('view-sagas').classList.remove('hidden');
+            } else if (tab === 'mylist') {
+                document.getElementById('view-mylist').classList.remove('hidden');
+                renderMyList();
+            }
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+
+        /* ==========================================================================
+           RENDER CATEGORY ROWS
+           ========================================================================== */
+        function renderSagaRows() {
+            const container = document.getElementById('saga-rows-container');
+
+            const rowsData = [
+                { title: '🔥 Siêu Phim Nổi Bật Hot Saiyan', filter: m => m.isHot },
+                { title: '⚡ Dragon Ball Z Kai - 20 Tập Remastered', filter: m => m.saga === 'Dragon Ball Z Kai' },
+                { title: '🐉 Dragon Ball Super & Movies Điện Ảnh', filter: m => m.saga === 'Dragon Ball Super' || m.saga === 'Dragon Ball Movies' },
+                { title: '🥋 Dragon Ball Z & Tuổi Thơ Kinh Điển', filter: m => m.saga === 'Dragon Ball Z' || m.saga === 'Dragon Ball Original' || m.saga === 'Dragon Ball GT' }
+            ];
+
+            container.innerHTML = rowsData.map((row, idx) => {
+                const movies = state.movies.filter(row.filter);
+                if (movies.length === 0) return '';
+
+                const rowId = `row-track-${idx}`;
+                return `
+                    <section class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <h2 class="text-lg sm:text-xl font-black text-white tracking-wide flex items-center gap-2">
+                                <span class="w-2.5 h-6 bg-gradient-to-b from-db-orange to-db-crimson rounded-full"></span> ${row.title}
+                            </h2>
+                            <div class="flex space-x-1">
+                                <button onclick="scrollRow('${rowId}', -300)" class="w-8 h-8 rounded-full bg-db-gray hover:bg-db-orange hover:text-black text-white flex items-center justify-center transition border border-gray-700">
+                                    <i class="fa-solid fa-chevron-left text-xs"></i>
+                                </button>
+                                <button onclick="scrollRow('${rowId}', 300)" class="w-8 h-8 rounded-full bg-db-gray hover:bg-db-orange hover:text-black text-white flex items-center justify-center transition border border-gray-700">
+                                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="${rowId}" class="flex gap-4 sm:gap-5 overflow-x-auto hide-scrollbar scroll-smooth py-2">
+                            ${movies.map(movie => createCardHTML(movie)).join('')}
+                        </div>
+                    </section>
+                `;
+            }).join('');
+        }
+
+        function scrollRow(id, amount) {
+            document.getElementById(id).scrollBy({ left: amount, behavior: 'smooth' });
+        }
+
+        /* ==========================================================================
+           RENDER DRAGON BALL Z KAI SPECIAL PAGE (20 EPISODES)
+           ========================================================================== */
+        function renderDBZKaiPage() {
+            const container = document.getElementById('dbz-kai-episodes-list');
+            const kaiMovie = state.movies.find(m => m.id === 'dbz-kai');
+            if (!kaiMovie) return;
+
+            const watched = state.watchedEpisodes['dbz-kai'] || [];
+
+            container.innerHTML = DBZ_KAI_EPISODES.map((ep, idx) => {
+                const isWatched = watched.includes(idx);
+
+                return `
+                    <div onclick="openPlayerModal('dbz-kai', ${idx})" 
+                         class="bg-db-card rounded-xl overflow-hidden border border-db-orange/20 hover:border-db-orange db-card cursor-pointer group flex flex-col justify-between p-3 relative">
+                        
+                        <div class="relative aspect-video rounded-lg overflow-hidden mb-2 bg-gray-900">
+                            <img src="${ep.thumb}" alt="${ep.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                            <span class="absolute bottom-2 right-2 bg-black/80 text-white font-extrabold text-[10px] px-1.5 py-0.5 rounded">
+                                ${ep.duration}
+                            </span>
+                            ${isWatched ? '<span class="absolute top-2 left-2 bg-green-500 text-black font-black text-[10px] px-2 py-0.5 rounded flex items-center gap-1 shadow"><i class="fa-solid fa-check"></i> Đã xem</span>' : ''}
+                            <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                                <i class="fa-solid fa-circle-play text-db-orange text-3xl drop-shadow-lg"></i>
+                            </div>
+                        </div>
+
+                        <div class="space-y-1">
+                            <div class="flex items-center justify-between">
+                                <span class="text-db-gold font-black text-xs">TẬP ${ep.ep}</span>
+                                <span class="text-[10px] text-gray-400">HD Vietsub</span>
+                            </div>
+                            <h3 class="text-xs sm:text-sm font-bold text-white group-hover:text-db-orange transition line-clamp-1">${ep.title}</h3>
+                            <p class="text-[11px] text-gray-400 line-clamp-2">${ep.desc}</p>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        /* ==========================================================================
+           RENDER SAGAS TAB
+           ========================================================================== */
+        function renderSagasTab() {
+            const chipContainer = document.getElementById('saga-filter-chips');
+            chipContainer.innerHTML = SAGAS.map(s => `
+                <button onclick="filterSagaTab('${s}')" 
+                        class="px-4 py-1.5 rounded-full text-xs font-black whitespace-nowrap transition border ${state.selectedSagaFilter === s ? 'bg-db-orange text-black border-db-orange' : 'bg-db-gray text-gray-300 border-gray-700 hover:border-db-orange'}">
+                    ${s}
+                </button>
+            `).join('');
+
+            const grid = document.getElementById('all-sagas-grid');
+            const filtered = state.movies.filter(m => state.selectedSagaFilter === 'Tất Cả' || m.saga === state.selectedSagaFilter);
+
+            grid.innerHTML = filtered.map(movie => `
+                <div onclick="openPlayerModal('${movie.id}', 0)" class="bg-db-card rounded-2xl overflow-hidden border border-db-orange/20 hover:border-db-orange db-card cursor-pointer flex flex-col group">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="${movie.backdrop}" alt="${movie.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-db-card via-transparent to-transparent"></div>
+                        <span class="absolute top-3 left-3 bg-db-crimson text-white font-extrabold text-[10px] px-2 py-0.5 rounded shadow">
+                            ${movie.saga}
+                        </span>
+                    </div>
+                    <div class="p-4 flex flex-col flex-grow justify-between space-y-3">
+                        <div>
+                            <h3 class="text-base font-black text-white group-hover:text-db-orange transition">${movie.title}</h3>
+                            <p class="text-xs text-gray-400 line-clamp-2 mt-1">${movie.description}</p>
+                        </div>
+                        <div class="flex items-center justify-between text-xs text-gray-400 border-t border-gray-800 pt-3">
+                            <span class="text-db-gold font-bold"><i class="fa-solid fa-star"></i> ${movie.rating}</span>
+                            <span class="bg-db-gray text-db-gold px-2 py-0.5 rounded font-bold">${movie.totalEpisodes} Tập</span>
+                            <span>${movie.year}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterSagaTab(saga) {
+            state.selectedSagaFilter = saga;
+            renderSagasTab();
+        }
+
+        /* ==========================================================================
+           CARD HTML TEMPLATE
+           ========================================================================== */
+        function createCardHTML(movie) {
+            const isFav = state.myList.some(m => m.id === movie.id);
+
+            return `
+                <div class="db-card flex-none w-36 sm:w-48 bg-db-card rounded-xl overflow-hidden border border-db-orange/20 group relative flex flex-col cursor-pointer" onclick="openPlayerModal('${movie.id}', 0)">
+                    <div class="relative aspect-[2/3] overflow-hidden bg-gray-900">
+                        <img src="${movie.poster}" alt="${movie.title}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-db-card via-transparent to-transparent opacity-80"></div>
+                        
+                        <div class="absolute top-2 left-2">
+                            <span class="bg-black/80 backdrop-blur-md text-db-gold text-[10px] font-extrabold px-1.5 py-0.5 rounded flex items-center gap-1 border border-db-orange/30">
+                                <i class="fa-solid fa-star text-[9px]"></i> ${movie.rating}
+                            </span>
+                        </div>
+
+                        <button onclick="event.stopPropagation(); toggleFavorite('${movie.id}')" 
+                                class="absolute top-2 right-2 w-7 h-7 rounded-full bg-black/70 hover:bg-db-orange text-white hover:text-black flex items-center justify-center transition backdrop-blur-md">
+                            <i class="${isFav ? 'fa-solid text-db-gold' : 'fa-regular'} fa-star text-xs"></i>
+                        </button>
+
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/40">
+                            <div class="w-11 h-11 rounded-full bg-db-orange text-black flex items-center justify-center shadow-lg shadow-db-orange/50 transform scale-75 group-hover:scale-100 transition">
+                                <i class="fa-solid fa-play text-base ml-0.5"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-3 flex flex-col flex-grow justify-between space-y-1">
+                        <h3 class="text-xs sm:text-sm font-extrabold text-white group-hover:text-db-orange transition line-clamp-1">${movie.title}</h3>
+                        <div class="flex items-center justify-between text-[10px] text-gray-400">
+                            <span>${movie.year}</span>
+                            <span class="bg-db-gray text-db-gold px-1.5 py-0.5 rounded font-bold">${movie.totalEpisodes} Tập</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        /* ==========================================================================
+           SEARCH & FILTER LOGIC
+           ========================================================================== */
+        function handleFilterAndSearch() {
+            const isSearching = state.searchQuery.length > 0;
+            const resultsWrapper = document.getElementById('search-results-wrapper');
+            const rowsContainer = document.getElementById('saga-rows-container');
+            const heroBanner = document.getElementById('hero-banner');
+
+            if (isSearching) {
+                heroBanner.classList.add('hidden');
+                rowsContainer.classList.add('hidden');
+                resultsWrapper.classList.remove('hidden');
+
+                const filtered = state.movies.filter(m => 
+                    m.title.toLowerCase().includes(state.searchQuery) ||
+                    m.saga.toLowerCase().includes(state.searchQuery) ||
+                    m.description.toLowerCase().includes(state.searchQuery)
+                );
+
+                document.getElementById('search-count').innerText = `(${filtered.length} kết quả)`;
+                const grid = document.getElementById('search-results-grid');
+                grid.innerHTML = filtered.length === 0 ? 
+                    `<div class="col-span-full py-12 text-center text-gray-400">Không tìm thấy phần phim Dragon Ball phù hợp từ khóa "${state.searchQuery}".</div>` :
+                    filtered.map(movie => createCardHTML(movie)).join('');
+            } else {
+                heroBanner.classList.remove('hidden');
+                rowsContainer.classList.remove('hidden');
+                resultsWrapper.classList.add('hidden');
+            }
+        }
+
+        function clearSearch() {
+            document.getElementById('search-input').value = '';
+            state.searchQuery = '';
+            document.getElementById('clear-search').classList.add('hidden');
+            handleFilterAndSearch();
+        }
+
+        /* ==========================================================================
+           FAVORITES (MY LIST)
+           ========================================================================== */
+        function toggleFavorite(movieId) {
+            const movie = state.movies.find(m => m.id === movieId);
+            if (!movie) return;
+
+            const index = state.myList.findIndex(m => m.id === movieId);
+            if (index > -1) {
+                state.myList.splice(index, 1);
+                showToast(`Đã xóa "${movie.title}" khỏi danh sách yêu thích!`, 'info');
+            } else {
+                state.myList.push(movie);
+                showToast(`Đã lưu "${movie.title}" vào danh sách yêu thích!`, 'success');
+            }
+
+            localStorage.setItem('db_mylist', JSON.stringify(state.myList));
+            updateMyListBadges();
+            updateHeroFavButton(movieId);
+            if (state.activeTab === 'mylist') renderMyList();
+            renderSagaRows();
+        }
+
+        function updateMyListBadges() {
+            const count = state.myList.length;
+            const badge = document.getElementById('mylist-badge');
+            const mobileBadge = document.getElementById('mobile-mylist-badge');
+
+            if (count > 0) {
+                badge.innerText = count;
+                badge.classList.remove('hidden');
+                mobileBadge.innerText = count;
+                mobileBadge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+                mobileBadge.classList.add('hidden');
+            }
+        }
+
+        function renderMyList() {
+            const grid = document.getElementById('mylist-grid');
+            const emptyState = document.getElementById('mylist-empty');
+
+            if (state.myList.length === 0) {
+                grid.innerHTML = '';
+                emptyState.classList.remove('hidden');
+            } else {
+                emptyState.classList.add('hidden');
+                grid.innerHTML = state.myList.map(movie => createCardHTML(movie)).join('');
+            }
+        }
+
+        /* ==========================================================================
+           PLAYER MODAL & IFRAME VIDEO ENGINE
+           ========================================================================== */
+        function openPlayerModal(movieId, epIndex = 0) {
+            const movie = state.movies.find(m => m.id === movieId);
+            if (!movie) return;
+
+            state.currentMovie = movie;
+            state.currentEpIndex = epIndex;
+
+            // Load Modal Info
+            document.getElementById('modal-title').innerText = movie.title;
+            document.getElementById('modal-saga-badge').innerText = movie.saga;
+            document.getElementById('modal-rating').innerText = `${movie.rating}/10`;
+            document.getElementById('modal-year').innerText = movie.year;
+            document.getElementById('modal-total-ep').innerText = `${movie.totalEpisodes} Tập`;
+
+            updatePlayerVideo();
+            renderEpisodeGrid();
+            renderComments();
+            updateModalFavButton();
+
+            // Show Modal
+            document.getElementById('player-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function updatePlayerVideo() {
+            const movie = state.currentMovie;
+            const epList = movie.episodesList || [];
+            const epData = epList[state.currentEpIndex] || { title: 'Tập ' + (state.currentEpIndex + 1), videoUrl: movie.videoUrl, desc: movie.description };
+
+            document.getElementById('modal-current-ep-badge').innerText = `Tập ${state.currentEpIndex + 1}`;
+            document.getElementById('modal-ep-title').innerText = epData.title || '';
+            document.getElementById('modal-desc').innerText = epData.desc || movie.description;
+
+            // Render iFrame Player dynamically
+            const container = document.getElementById('video-frame-container');
+            container.innerHTML = `
+                <iframe src="${epData.videoUrl}" 
+                        title="${movie.title} - ${epData.title}" 
+                        class="w-full h-full border-0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                </iframe>
+            `;
+
+            // Mark watched in localStorage
+            markEpisodeAsWatched(movie.id, state.currentEpIndex);
+            updateWatchedCounter();
+            renderDBZKaiPage();
+        }
+
+        function playEpisode(epIndex) {
+            state.currentEpIndex = epIndex;
+            updatePlayerVideo();
+            renderEpisodeGrid();
+            renderComments();
+        }
+
+        function playNextEpisode(direction) {
+            if (!state.currentMovie) return;
+            const newIndex = state.currentEpIndex + direction;
+            const maxEp = (state.currentMovie.episodesList || []).length - 1;
+
+            if (newIndex >= 0 && newIndex <= maxEp) {
+                playEpisode(newIndex);
+            } else {
+                showToast(direction > 0 ? 'Bạn đang xem tập mới nhất!' : 'Đây là tập đầu tiên rồi!', 'info');
+            }
+        }
+
+        function setAudioServer(type) {
+            state.audioServer = type;
+            const btnVietsub = document.getElementById('btn-sub-vietsub');
+            const btnThuyetminh = document.getElementById('btn-sub-thuyetminh');
+
+            if (type === 'Vietsub') {
+                btnVietsub.className = 'px-3 py-1 rounded-md font-extrabold text-white bg-db-orange';
+                btnThuyetminh.className = 'px-3 py-1 rounded-md font-extrabold text-gray-400 hover:text-white';
+            } else {
+                btnThuyetminh.className = 'px-3 py-1 rounded-md font-extrabold text-white bg-db-orange';
+                btnVietsub.className = 'px-3 py-1 rounded-md font-extrabold text-gray-400 hover:text-white';
+            }
+            showToast(`Đã chuyển sang Server âm thanh: ${type}`);
+            updatePlayerVideo(); // Re-render stream
+        }
+
+        function switchServer(serverId) {
+            state.activeServerId = serverId;
+            document.getElementById('server-1').className = serverId === 1 ? 'px-2.5 py-1 rounded font-bold text-db-gold bg-black/60 border border-db-orange/30' : 'px-2.5 py-1 rounded font-bold text-gray-400 hover:text-white';
+            document.getElementById('server-2').className = serverId === 2 ? 'px-2.5 py-1 rounded font-bold text-db-gold bg-black/60 border border-db-orange/30' : 'px-2.5 py-1 rounded font-bold text-gray-400 hover:text-white';
+            showToast(`Đã chuyển sang Server Stream ${serverId}`);
+            updatePlayerVideo();
+        }
+
+        /* Episode Watched Tracker */
+        function markEpisodeAsWatched(movieId, epIndex) {
+            if (!state.watchedEpisodes[movieId]) {
+                state.watchedEpisodes[movieId] = [];
+            }
+            if (!state.watchedEpisodes[movieId].includes(epIndex)) {
+                state.watchedEpisodes[movieId].push(epIndex);
+                localStorage.setItem('db_watched', JSON.stringify(state.watchedEpisodes));
+            }
+        }
+
+        function updateWatchedCounter() {
+            let total = 0;
+            Object.values(state.watchedEpisodes).forEach(list => {
+                if (Array.isArray(list)) total += list.length;
+            });
+            const el = document.getElementById('total-watched-count');
+            if (el) el.innerText = total;
+        }
+
+        function renderEpisodeGrid() {
+            const grid = document.getElementById('episodes-grid');
+            const movie = state.currentMovie;
+            const epList = movie.episodesList || [];
+            const watched = state.watchedEpisodes[movie.id] || [];
+
+            document.getElementById('modal-watched-count').innerText = `Đã xem ${watched.length}/${epList.length} tập`;
+
+            grid.innerHTML = epList.map((ep, i) => {
+                const isCurrent = i === state.currentEpIndex;
+                const isWatched = watched.includes(i);
+
+                return `
+                    <button id="ep-btn-${i}" onclick="playEpisode(${i})" 
+                            class="py-2 px-1 rounded-lg text-xs font-black transition relative border ${isCurrent ? 'bg-db-orange text-black border-db-orange shadow-md shadow-db-orange/40 scale-105' : isWatched ? 'bg-db-gray text-gray-400 border-gray-700' : 'bg-db-gray/60 hover:bg-db-gray text-white border-gray-800'}">
+                        Tập ${i + 1}
+                        ${isWatched && !isCurrent ? '<i class="fa-solid fa-check text-[9px] text-green-400 absolute top-1 right-1"></i>' : ''}
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function filterEpisodeButtons() {
+            const query = document.getElementById('ep-filter-input').value.trim();
+            const movie = state.currentMovie;
+            if (!movie) return;
+
+            (movie.episodesList || []).forEach((_, i) => {
+                const btn = document.getElementById(`ep-btn-${i}`);
+                if (btn) {
+                    const epNum = (i + 1).toString();
+                    if (query === '' || epNum.includes(query)) {
+                        btn.classList.remove('hidden');
+                    } else {
+                        btn.classList.add('hidden');
+                    }
+                }
+            });
+        }
+
+        function updateModalFavButton() {
+            if (!state.currentMovie) return;
+            const isFav = state.myList.some(m => m.id === state.currentMovie.id);
+            const btn = document.getElementById('modal-fav-btn');
+
+            btn.onclick = () => {
+                toggleFavorite(state.currentMovie.id);
+                updateModalFavButton();
+            };
+
+            if (isFav) {
+                btn.innerHTML = `<i class="fa-solid fa-star text-db-gold"></i> Đã Lưu Vào Danh Sách`;
+                btn.classList.add('border-db-orange');
+            } else {
+                btn.innerHTML = `<i class="fa-regular fa-star"></i> Thêm Vào Danh Sách`;
+                btn.classList.remove('border-db-orange');
+            }
+        }
+
+        function closePlayerModal() {
+            document.getElementById('player-modal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+            document.getElementById('video-frame-container').innerHTML = '';
+            state.currentMovie = null;
+        }
+
+        /* ==========================================================================
+           COMMENTS SYSTEM
+           ========================================================================== */
+        function renderComments() {
+            const list = document.getElementById('comment-list');
+            if (!state.currentMovie) return;
+
+            const key = `${state.currentMovie.id}_ep_${state.currentEpIndex}`;
+            const comments = state.comments[key] || [
+                { user: 'Goku_Saiyan_God', text: 'Tập Dragon Ball Z Kai này xem mượt thực sự, âm thanh remastered đỉnh cao!', time: '5 phút trước' },
+                { user: 'Vegeta_Prince', text: 'Kakarot hãy đợi đấy, tập sau ta sẽ vượt qua ngươi!', time: '18 phút trước' }
+            ];
+
+            list.innerHTML = comments.map(c => `
+                <div class="bg-db-gray/80 p-2.5 rounded-xl text-xs space-y-1 border border-gray-800">
+                    <div class="flex justify-between font-bold">
+                        <span class="text-db-gold"><i class="fa-solid fa-user-ninja mr-1"></i> ${c.user}</span>
+                        <span class="text-gray-500 text-[10px]">${c.time}</span>
+                    </div>
+                    <p class="text-gray-300">${c.text}</p>
+                </div>
+            `).join('');
+        }
+
+        function addComment() {
+            const input = document.getElementById('comment-input');
+            const text = input.value.trim();
+            if (!text || !state.currentMovie) return;
+
+            const key = `${state.currentMovie.id}_ep_${state.currentEpIndex}`;
+            if (!state.comments[key]) state.comments[key] = [];
+
+            state.comments[key].unshift({
+                user: 'Ki_Fan_DragonBall',
+                text: text,
+                time: 'Vừa xong'
+            });
+
+            localStorage.setItem('db_comments', JSON.stringify(state.comments));
+            input.value = '';
+            renderComments();
+            showToast('Đã gửi bình luận của bạn!');
+        }
+
+        /* ==========================================================================
+           TOAST NOTIFICATION
+           ========================================================================== */
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+
+            const bgClass = type === 'success' ? 'bg-db-orange text-black' : 'bg-gray-800 text-white border border-gray-700';
+
+            toast.className = `${bgClass} px-4 py-3 rounded-xl shadow-2xl flex items-center gap-3 text-xs sm:text-sm font-black transition-all duration-300 transform translate-y-5 opacity-0 z-50`;
+            toast.innerHTML = `
+                <i class="fa-solid fa-dragon text-base"></i>
+                <span>${message}</span>
+            `;
+
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-5', 'opacity-0');
+            }, 10);
+
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-5');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+{
+  "name": "Dragon Ball Stream - Xem Phim Online",
+  "short_name": "DB Stream",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0d0d0d",
+  "theme_color": "#ff6b00",
+  "description": "Ứng dụng xem phim Dragon Ball chuẩn HD Vietsub",
+  "icons": [
+    {
+      "src": "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=192",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=512",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
