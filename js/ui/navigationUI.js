@@ -6,7 +6,6 @@ function initHero() {
     const heroMovie = state.movies.find(m => m.id === 'dbz-kai') || state.movies[0];
     if (!heroMovie) return;
 
-    document.getElementById('hero-bg').src = heroMovie.backdrop;
     document.getElementById('hero-title').innerText = heroMovie.title;
     document.getElementById('hero-desc').innerText = heroMovie.description;
     document.getElementById('hero-rating').innerText = heroMovie.rating;

@@ -104,6 +104,7 @@ function renderSagasTab() {
         <div onclick="openPlayerModal('${movie.id}', 0)" class="bg-db-card rounded-2xl overflow-hidden border border-db-orange/20 hover:border-db-orange db-card cursor-pointer flex flex-col group">
             <div class="relative h-48 overflow-hidden">
                 <img src="${movie.backdrop}" alt="${movie.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                ${renderComingSoonBadge(movie)}
                 <div class="absolute inset-0 bg-gradient-to-t from-db-card via-transparent to-transparent"></div>
                 <span class="absolute top-3 left-3 bg-db-crimson text-white font-extrabold text-[10px] px-2 py-0.5 rounded shadow">
                     ${movie.saga}
@@ -129,6 +130,16 @@ function filterSagaTab(saga) {
     renderSagasTab();
 }
 
+function renderComingSoonBadge(movie) {
+    if (!movie.isComingSoon) return '';
+
+    return `
+        <span class="absolute inset-x-0 bottom-0 z-10 flex items-center justify-center gap-1 bg-black/50 py-2 text-center text-[11px] font-normal uppercase tracking-wider text-db-orange">
+            <i class="fa-regular fa-clock mr-1"></i>Coming Soon
+        </span>
+    `;
+}
+
 /* ==========================================================================
    CARD HTML TEMPLATE
    ========================================================================== */
@@ -139,6 +150,7 @@ function createCardHTML(movie) {
         <div class="db-card flex-none w-36 sm:w-48 bg-db-card rounded-xl overflow-hidden border border-db-orange/20 group relative flex flex-col cursor-pointer" onclick="openPlayerModal('${movie.id}', 0)">
             <div class="relative aspect-[2/3] overflow-hidden bg-gray-900">
                 <img src="${movie.poster}" alt="${movie.title}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                ${renderComingSoonBadge(movie)}
                 <div class="absolute inset-0 bg-gradient-to-t from-db-card via-transparent to-transparent opacity-80"></div>
                 
                 <div class="absolute top-2 left-2">
