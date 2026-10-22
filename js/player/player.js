@@ -49,7 +49,7 @@ function updatePlayerVideo() {
 }
 
 function playEpisode(epIndex) {
-    requestPlaybackPopupAd();
+    //requestPlaybackPopupAd();
 
     state.currentEpIndex = epIndex;
     updatePlayerVideo();
