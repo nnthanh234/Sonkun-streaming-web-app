@@ -2,8 +2,6 @@ function openPlayerModal(movieId, epIndex = 0) {
     const movie = state.movies.find(m => m.id === movieId);
     if (!movie) return;
 
-    loadPlaybackPopupAd();
-
     state.currentMovie = movie;
     state.currentEpIndex = epIndex;
 
@@ -51,9 +49,7 @@ function updatePlayerVideo() {
 }
 
 function playEpisode(epIndex) {
-    if (epIndex !== state.currentEpIndex) {
-        loadPlaybackPopupAd();
-    }
+    requestPlaybackPopupAd();
 
     state.currentEpIndex = epIndex;
     updatePlayerVideo();
@@ -74,10 +70,6 @@ function playNextEpisode(direction) {
 }
 
 function setAudioServer(type) {
-    if (type !== state.audioServer) {
-        loadPlaybackPopupAd();
-    }
-
     state.audioServer = type;
     const btnVietsub = document.getElementById('btn-sub-vietsub');
     const btnThuyetminh = document.getElementById('btn-sub-thuyetminh');
@@ -94,10 +86,6 @@ function setAudioServer(type) {
 }
 
 function switchServer(serverId) {
-    if (serverId !== state.activeServerId) {
-        loadPlaybackPopupAd();
-    }
-
     state.activeServerId = serverId;
     document.getElementById('server-1').className = serverId === 1 ? 'px-2.5 py-1 rounded font-bold text-db-gold bg-black/60 border border-db-orange/30' : 'px-2.5 py-1 rounded font-bold text-gray-400 hover:text-white';
     document.getElementById('server-2').className = serverId === 2 ? 'px-2.5 py-1 rounded font-bold text-db-gold bg-black/60 border border-db-orange/30' : 'px-2.5 py-1 rounded font-bold text-gray-400 hover:text-white';
