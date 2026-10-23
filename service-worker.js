@@ -1,6 +1,8 @@
-const CACHE_NAME = 'son-kun-shell-v3';
+const CACHE_NAME = 'son-kun-shell-v7';
 const APP_SHELL = [
     './index.html',
+    './privacy-policy.html',
+    './data-deletion.html',
     './styles/tailwind.css',
     './manifest.json',
     './icon.svg',
@@ -9,6 +11,8 @@ const APP_SHELL = [
     './js/data/movies.js',
     './js/services/storageService.js',
     './js/services/adService.js',
+    './js/services/firebaseConfig.js',
+    './js/services/firebaseAuth.js',
     './js/services/pwaService.js',
     './js/state/appState.js',
     './js/player/player.js',

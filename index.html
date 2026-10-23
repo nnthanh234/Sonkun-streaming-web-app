@@ -121,6 +121,11 @@
                     <span>Đã xem: <strong id="total-watched-count" class="text-db-gold">0</strong> tập</span>
                 </div>
 
+                <button id="auth-button" onclick="openAuthModal()" class="hidden sm:flex items-center gap-2 rounded-full border border-db-orange/40 bg-db-gray/80 px-3 py-2 text-xs font-bold text-db-orange transition hover:bg-db-orange hover:text-black">
+                    <i class="fa-regular fa-user"></i>
+                    <span id="auth-button-label" class="max-w-28 truncate">Đăng nhập</span>
+                </button>
+
                 <!-- Mobile Menu Button -->
                 <button onclick="toggleMobileMenu()" class="md:hidden text-gray-300 hover:text-db-orange p-2 rounded-lg">
                     <i class="fa-solid fa-bars text-xl"></i>
@@ -139,6 +144,9 @@
             <button onclick="switchTab('mylist'); toggleMobileMenu()" class="block w-full text-left py-2 px-3 rounded hover:bg-db-gray text-white flex justify-between items-center">
                 <span><i class="fa-solid fa-star mr-2 text-db-gold"></i> Đã Lưu Yêu Thích</span>
                 <span id="mobile-mylist-badge" class="bg-db-orange text-black font-extrabold text-xs px-2 py-0.5 rounded-full">0</span>
+            </button>
+            <button id="auth-mobile-button" onclick="openAuthModal(); toggleMobileMenu()" class="block w-full text-left py-2 px-3 rounded hover:bg-db-gray text-db-orange">
+                <i class="fa-regular fa-user mr-2"></i><span id="auth-mobile-button-label">Đăng nhập</span>
             </button>
         </div>
     </header>
@@ -338,6 +346,53 @@
         </div>
     </div>
 
+    <div id="auth-modal" class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/80 p-4 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="auth-modal-title">
+        <div class="relative w-full max-w-md rounded-2xl border border-db-orange/30 bg-db-card p-6 shadow-2xl sm:p-8">
+            <button onclick="closeAuthModal()" class="absolute right-3 top-3 rounded-lg p-2 text-gray-400 transition hover:bg-db-gray hover:text-white" aria-label="Đóng đăng nhập">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="mb-6 text-center">
+                <div class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-tr from-db-crimson via-db-orange to-db-gold text-xl text-black shadow-lg shadow-db-orange/30">
+                    <i class="fa-solid fa-dragon"></i>
+                </div>
+                <h2 id="auth-modal-title" class="text-2xl font-black text-white">Chào mừng đến với Son Kun</h2>
+                <p class="mt-2 text-sm text-gray-400">Đăng nhập hoặc đăng ký để tiếp tục</p>
+            </div>
+
+            <div id="auth-provider-actions" class="space-y-3">
+                <button onclick="signInWithGoogle()" class="flex w-full items-center justify-center gap-3 rounded-xl bg-white px-4 py-3 text-sm font-bold text-gray-800 transition hover:bg-gray-100">
+                    <i class="fa-brands fa-google text-base"></i> Tiếp tục với Google
+                </button>
+                <button onclick="signInWithFacebook()" class="flex w-full items-center justify-center gap-3 rounded-xl bg-[#1877F2] px-4 py-3 text-sm font-bold text-white transition hover:bg-[#166FE5]">
+                    <i class="fa-brands fa-facebook text-lg"></i> Tiếp tục với Facebook
+                </button>
+                <p class="pt-2 text-center text-xs leading-relaxed text-gray-500">
+                    Lần đầu đăng nhập sẽ tự động tạo tài khoản Son Kun bằng thông tin cơ bản từ nhà cung cấp.
+                </p>
+            </div>
+
+            <div id="auth-account-panel" class="hidden space-y-4 text-center">
+                <div class="mx-auto flex h-14 w-14 items-center justify-center overflow-hidden rounded-full border border-db-orange/40 bg-db-gray text-xl text-db-orange">
+                    <img id="auth-user-photo" class="hidden h-full w-full object-cover" alt="">
+                    <i id="auth-user-icon" class="fa-regular fa-user"></i>
+                </div>
+                <div>
+                    <p id="auth-user-name" class="font-bold text-white"></p>
+                    <p id="auth-user-email" class="mt-1 text-sm text-gray-400"></p>
+                </div>
+                <div id="auth-facebook-linked" class="hidden rounded-xl border border-green-700/50 bg-green-900/20 px-4 py-3 text-sm font-semibold text-green-300">
+                    Facebook đã được liên kết với tài khoản này.
+                </div>
+                <button id="auth-link-facebook-button" onclick="linkFacebookAccount()" class="flex w-full items-center justify-center gap-3 rounded-xl bg-[#1877F2] px-4 py-3 text-sm font-bold text-white transition hover:bg-[#166FE5]">
+                    <i class="fa-brands fa-facebook text-lg"></i> Liên kết Facebook
+                </button>
+                <button onclick="signOutUser()" class="w-full rounded-xl border border-gray-700 bg-db-gray px-4 py-3 text-sm font-bold text-white transition hover:border-db-orange hover:text-db-orange">
+                    Đăng xuất
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- MOVIE DETAIL & EPISODE PLAYER MODAL -->
     <div id="player-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-2 sm:p-4 bg-black/95 backdrop-blur-md overflow-y-auto">
         <div class="relative w-full max-w-5xl bg-db-card rounded-2xl overflow-hidden shadow-2xl border border-db-orange/30 my-auto">
@@ -503,6 +558,7 @@
     <script src="./js/ui/navigationUI.js" defer></script>
     <script src="./js/services/pwaService.js" defer></script>
     <script src="./js/app.js" defer></script>
+    <script type="module" src="./js/services/firebaseAuth.js"></script>
     <script data-cfasync="false" src="https://bancadeltempoidea.org/14/eaf50ac218591bdadf68fb89c1046142"></script>
 </body>
 </html>
