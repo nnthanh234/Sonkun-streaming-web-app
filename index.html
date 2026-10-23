@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi" class="dark h-full">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,26 +14,32 @@
     <link rel="stylesheet" href="./styles/tailwind.css">
     <!-- FontAwesome & Google Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
     <style>
         /* Custom Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
             height: 8px;
         }
+
         ::-webkit-scrollbar-track {
             background: #0A0C10;
         }
+
         ::-webkit-scrollbar-thumb {
             background: #FF6B00;
             border-radius: 4px;
         }
+
         ::-webkit-scrollbar-thumb:hover {
             background: #FF8C00;
         }
+
         .hide-scrollbar::-webkit-scrollbar {
             display: none;
         }
+
         .hide-scrollbar {
             -ms-overflow-style: none;
             scrollbar-width: none;
@@ -43,9 +50,11 @@
             background: rgba(10, 12, 16, 0.92);
             backdrop-filter: blur(14px);
         }
+
         .ki-glow-border {
             box-shadow: 0 0 15px rgba(255, 107, 0, 0.3);
         }
+
         .ki-glow-border:hover {
             box-shadow: 0 0 25px rgba(255, 107, 0, 0.7), 0 0 12px rgba(255, 215, 0, 0.5);
         }
@@ -53,52 +62,73 @@
         .db-card {
             transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
         }
+
         .db-card:hover {
             transform: translateY(-6px) scale(1.02);
         }
 
         @keyframes pulse-ki {
-            0%, 100% { opacity: 0.8; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.05); }
+
+            0%,
+            100% {
+                opacity: 0.8;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
         }
+
         .animate-ki {
             animation: pulse-ki 2s infinite ease-in-out;
         }
     </style>
 </head>
-<body class="bg-db-dark text-gray-100 font-sans min-h-full flex flex-col antialiased selection:bg-db-orange selection:text-black">
+
+<body
+    class="bg-db-dark text-gray-100 font-sans min-h-full flex flex-col antialiased selection:bg-db-orange selection:text-black">
 
     <!-- Toast Container -->
     <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2"></div>
 
     <!-- Header Navigation -->
-    <header id="main-header" class="fixed top-0 left-0 right-0 z-40 transition-all duration-300 glass-nav border-b border-db-orange/20">
+    <header id="main-header"
+        class="fixed top-0 left-0 right-0 z-40 transition-all duration-300 glass-nav border-b border-db-orange/20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
             <!-- Logo -->
             <div class="flex items-center space-x-6 lg:space-x-8">
                 <a href="#" onclick="switchTab('home')" class="flex items-center gap-2.5 group">
-                    <div class="relative w-10 h-10 rounded-full bg-gradient-to-tr from-db-crimson via-db-orange to-db-gold flex items-center justify-center shadow-lg shadow-db-orange/50 group-hover:scale-110 transition-transform animate-ki">
+                    <div
+                        class="relative w-10 h-10 rounded-full bg-gradient-to-tr from-db-crimson via-db-orange to-db-gold flex items-center justify-center shadow-lg shadow-db-orange/50 group-hover:scale-110 transition-transform animate-ki">
                         <i class="fa-solid fa-dragon text-black text-xl"></i>
                     </div>
                     <div class="flex flex-col">
-                        <span class="text-xl sm:text-2xl font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-db-orange via-db-gold to-yellow-300">
+                        <span
+                            class="text-xl sm:text-2xl font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-db-orange via-db-gold to-yellow-300">
                             SON KUN
                         </span>
-                        <span class="text-[9px] font-bold text-db-gold uppercase tracking-widest -mt-1">STREAMING WEB APP</span>
+                        <span class="text-[9px] font-bold text-db-gold uppercase tracking-widest -mt-1">STREAMING WEB
+                            APP</span>
                     </div>
                 </a>
-                
+
                 <!-- Nav Links -->
                 <nav class="hidden md:flex items-center space-x-5 text-xs lg:text-sm font-semibold">
-                    <button onclick="switchTab('home')" id="nav-home" class="nav-btn text-db-orange transition hover:text-db-gold flex items-center gap-1.5">
+                    <button onclick="switchTab('home')" id="nav-home"
+                        class="nav-btn text-db-orange transition hover:text-db-gold flex items-center gap-1.5">
                         <i class="fa-solid fa-house"></i> Trang Chủ
                     </button>
-                    <button onclick="switchTab('sagas')" id="nav-sagas" class="nav-btn text-gray-300 transition hover:text-db-orange flex items-center gap-1.5">
+                    <button onclick="switchTab('sagas')" id="nav-sagas"
+                        class="nav-btn text-gray-300 transition hover:text-db-orange flex items-center gap-1.5">
                         <i class="fa-solid fa-layer-group"></i> Tất Cả Phần Phim
                     </button>
-                    <button onclick="switchTab('mylist')" id="nav-mylist" class="nav-btn text-gray-300 transition hover:text-db-orange flex items-center gap-1.5">
+                    <button onclick="switchTab('mylist')" id="nav-mylist"
+                        class="nav-btn text-gray-300 transition hover:text-db-orange flex items-center gap-1.5">
                         <i class="fa-solid fa-star text-db-gold"></i> Đã Lưu
-                        <span id="mylist-badge" class="bg-db-orange text-black font-extrabold text-[10px] px-2 py-0.5 rounded-full hidden">0</span>
+                        <span id="mylist-badge"
+                            class="bg-db-orange text-black font-extrabold text-[10px] px-2 py-0.5 rounded-full hidden">0</span>
                     </button>
                 </nav>
             </div>
@@ -107,45 +137,55 @@
             <div class="flex items-center space-x-3 sm:space-x-4">
                 <!-- Search Box -->
                 <div class="relative flex items-center">
-                    <input type="text" id="search-input" placeholder="Tìm Goku, DBZ Kai, Super..." 
-                           class="bg-db-gray/90 border border-db-orange/30 focus:border-db-orange text-xs sm:text-sm text-white rounded-full pl-9 pr-8 py-2 w-36 sm:w-60 focus:w-48 sm:focus:w-72 transition-all duration-300 outline-none">
+                    <input type="text" id="search-input" placeholder="Tìm Goku, DBZ Kai, Super..."
+                        class="bg-db-gray/90 border border-db-orange/30 focus:border-db-orange text-xs sm:text-sm text-white rounded-full pl-9 pr-8 py-2 w-36 sm:w-60 focus:w-48 sm:focus:w-72 transition-all duration-300 outline-none">
                     <i class="fa-solid fa-magnifying-glass absolute left-3 text-db-orange text-xs sm:text-sm"></i>
-                    <button id="clear-search" onclick="clearSearch()" class="hidden absolute right-3 text-gray-400 hover:text-white text-xs">
+                    <button id="clear-search" onclick="clearSearch()"
+                        class="hidden absolute right-3 text-gray-400 hover:text-white text-xs">
                         <i class="fa-solid fa-xmark"></i>
                     </button>
                 </div>
 
                 <!-- Watched Progress Counter -->
-                <div class="hidden lg:flex items-center gap-2 bg-db-gray/80 px-3 py-1.5 rounded-full border border-gray-800 text-xs text-gray-300">
+                <div
+                    class="hidden lg:flex items-center gap-2 bg-db-gray/80 px-3 py-1.5 rounded-full border border-gray-800 text-xs text-gray-300">
                     <i class="fa-solid fa-circle-check text-green-400"></i>
                     <span>Đã xem: <strong id="total-watched-count" class="text-db-gold">0</strong> tập</span>
                 </div>
 
-                <button id="auth-button" onclick="openAuthModal()" class="hidden sm:flex items-center gap-2 rounded-full border border-db-orange/40 bg-db-gray/80 px-3 py-2 text-xs font-bold text-db-orange transition hover:bg-db-orange hover:text-black">
+                <button id="auth-button" onclick="openAuthModal()"
+                    class="hidden sm:flex items-center gap-2 rounded-full border border-db-orange/40 bg-db-gray/80 px-3 py-2 text-xs font-bold text-db-orange transition hover:bg-db-orange hover:text-black">
                     <i class="fa-regular fa-user"></i>
                     <span id="auth-button-label" class="max-w-28 truncate">Đăng nhập</span>
                 </button>
 
                 <!-- Mobile Menu Button -->
-                <button onclick="toggleMobileMenu()" class="md:hidden text-gray-300 hover:text-db-orange p-2 rounded-lg">
+                <button onclick="toggleMobileMenu()"
+                    class="md:hidden text-gray-300 hover:text-db-orange p-2 rounded-lg">
                     <i class="fa-solid fa-bars text-xl"></i>
                 </button>
             </div>
         </div>
 
         <!-- Mobile Menu Drawer -->
-        <div id="mobile-menu" class="hidden md:hidden bg-db-dark/95 border-b border-db-orange/20 px-4 py-3 space-y-2 text-sm font-semibold">
-            <button onclick="switchTab('home'); toggleMobileMenu()" class="block w-full text-left py-2 px-3 rounded hover:bg-db-gray text-white">
+        <div id="mobile-menu"
+            class="hidden md:hidden bg-db-dark/95 border-b border-db-orange/20 px-4 py-3 space-y-2 text-sm font-semibold">
+            <button onclick="switchTab('home'); toggleMobileMenu()"
+                class="block w-full text-left py-2 px-3 rounded hover:bg-db-gray text-white">
                 <i class="fa-solid fa-house mr-2 text-db-orange"></i> Trang Chủ
             </button>
-            <button onclick="switchTab('sagas'); toggleMobileMenu()" class="block w-full text-left py-2 px-3 rounded hover:bg-db-gray text-white">
+            <button onclick="switchTab('sagas'); toggleMobileMenu()"
+                class="block w-full text-left py-2 px-3 rounded hover:bg-db-gray text-white">
                 <i class="fa-solid fa-layer-group mr-2 text-db-orange"></i> Tất Cả Phần Phim
             </button>
-            <button onclick="switchTab('mylist'); toggleMobileMenu()" class="block w-full text-left py-2 px-3 rounded hover:bg-db-gray text-white flex justify-between items-center">
+            <button onclick="switchTab('mylist'); toggleMobileMenu()"
+                class="block w-full text-left py-2 px-3 rounded hover:bg-db-gray text-white flex justify-between items-center">
                 <span><i class="fa-solid fa-star mr-2 text-db-gold"></i> Đã Lưu Yêu Thích</span>
-                <span id="mobile-mylist-badge" class="bg-db-orange text-black font-extrabold text-xs px-2 py-0.5 rounded-full">0</span>
+                <span id="mobile-mylist-badge"
+                    class="bg-db-orange text-black font-extrabold text-xs px-2 py-0.5 rounded-full">0</span>
             </button>
-            <button id="auth-mobile-button" onclick="openAuthModal(); toggleMobileMenu()" class="block w-full text-left py-2 px-3 rounded hover:bg-db-gray text-db-orange">
+            <button id="auth-mobile-button" onclick="openAuthModal(); toggleMobileMenu()"
+                class="block w-full text-left py-2 px-3 rounded hover:bg-db-gray text-db-orange">
                 <i class="fa-regular fa-user mr-2"></i><span id="auth-mobile-button-label">Đăng nhập</span>
             </button>
         </div>
@@ -157,46 +197,63 @@
         <!-- VIEW: HOME -->
         <div id="view-home" class="space-y-8 pb-16">
             <!-- Hero Featured Banner -->
-            <section id="hero-banner" class="relative w-full h-[65vh] sm:h-[75vh] lg:h-[82vh] flex items-end justify-start overflow-hidden">
-                <img id="hero-bg" src="https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=600&q=80" alt="Dragon Ball Z Kai Hero" class="absolute inset-0 w-full h-full object-cover object-center transition-all duration-700 scale-105">
+            <section id="hero-banner"
+                class="relative w-full h-[65vh] sm:h-[75vh] lg:h-[82vh] flex items-end justify-start overflow-hidden">
+                <img id="hero-bg"
+                    src="https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=600&q=80"
+                    alt="Dragon Ball Z Kai Hero"
+                    class="absolute inset-0 w-full h-full object-cover object-center transition-all duration-700 scale-105">
                 <div class="absolute inset-0 bg-gradient-to-t from-db-dark via-db-dark/60 to-transparent"></div>
                 <div class="absolute inset-0 bg-gradient-to-r from-db-dark via-db-dark/50 to-transparent"></div>
 
-                <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-10 sm:pb-16 w-full z-10 space-y-3 sm:space-y-4">
+                <div
+                    class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-10 sm:pb-16 w-full z-10 space-y-3 sm:space-y-4">
                     <div class="flex flex-wrap items-center gap-2">
-                        <span class="bg-gradient-to-r from-db-crimson via-db-orange to-db-gold text-white text-[10px] sm:text-xs font-black uppercase tracking-widest px-3 py-1 rounded-md shadow-lg shadow-db-crimson/40 animate-pulse">
+                        <span
+                            class="bg-gradient-to-r from-db-crimson via-db-orange to-db-gold text-white text-[10px] sm:text-xs font-black uppercase tracking-widest px-3 py-1 rounded-md shadow-lg shadow-db-crimson/40 animate-pulse">
                             <i class="fa-solid fa-fire mr-1"></i> BẢN NÂNG CẤP ĐẶC BIỆT
                         </span>
-                        <span id="hero-saga-badge" class="text-xs sm:text-sm font-extrabold text-db-gold bg-db-gray/80 px-2.5 py-0.5 rounded border border-db-orange/30">
+                        <span id="hero-saga-badge"
+                            class="text-xs sm:text-sm font-extrabold text-db-gold bg-db-gray/80 px-2.5 py-0.5 rounded border border-db-orange/30">
                             Dragon Ball Z Kai
                         </span>
                     </div>
 
-                    <h1 id="hero-title" class="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight drop-shadow-2xl leading-tight max-w-3xl">
+                    <h1 id="hero-title"
+                        class="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight drop-shadow-2xl leading-tight max-w-3xl">
                         --
                     </h1>
 
                     <div class="flex flex-wrap items-center gap-3 text-xs sm:text-sm text-gray-300">
-                        <span class="text-db-gold font-extrabold flex items-center gap-1 bg-db-gray/90 px-2.5 py-1 rounded border border-db-orange/40">
+                        <span
+                            class="text-db-gold font-extrabold flex items-center gap-1 bg-db-gray/90 px-2.5 py-1 rounded border border-db-orange/40">
                             <i class="fa-solid fa-star"></i> <span id="hero-rating">9.8</span>/10
                         </span>
                         <span id="hero-year" class="font-bold">2009 - 2015</span>
-                        <span id="hero-episodes" class="bg-db-crimson/80 text-white font-black px-2 py-0.5 rounded text-[11px]">20 Tập HD Sưu Tầm</span>
-                        <span class="bg-db-orange/20 text-db-orange border border-db-orange/40 px-2 py-0.5 rounded text-[11px] font-bold">Vietsub & Thuyết Minh</span>
+                        <span id="hero-episodes"
+                            class="bg-db-crimson/80 text-white font-black px-2 py-0.5 rounded text-[11px]">20 Tập HD Sưu
+                            Tầm</span>
+                        <span
+                            class="bg-db-orange/20 text-db-orange border border-db-orange/40 px-2 py-0.5 rounded text-[11px] font-bold">Vietsub
+                            & Thuyết Minh</span>
                     </div>
 
-                    <p id="hero-desc" class="text-xs sm:text-sm lg:text-base text-gray-300 max-w-2xl line-clamp-3 drop-shadow leading-relaxed">
+                    <p id="hero-desc"
+                        class="text-xs sm:text-sm lg:text-base text-gray-300 max-w-2xl line-clamp-3 drop-shadow leading-relaxed">
                         --
                     </p>
 
                     <div class="flex flex-wrap items-center gap-3 pt-2">
-                        <button id="hero-play-btn" onclick="" class="bg-gradient-to-r from-db-orange via-db-gold to-yellow-400 hover:from-db-gold hover:to-db-orange text-black font-black px-6 sm:px-8 py-3 rounded-xl flex items-center gap-2.5 transition transform active:scale-95 shadow-xl shadow-db-orange/40 text-sm sm:text-base">
+                        <button id="hero-play-btn" onclick=""
+                            class="bg-gradient-to-r from-db-orange via-db-gold to-yellow-400 hover:from-db-gold hover:to-db-orange text-black font-black px-6 sm:px-8 py-3 rounded-xl flex items-center gap-2.5 transition transform active:scale-95 shadow-xl shadow-db-orange/40 text-sm sm:text-base">
                             <i class="fa-solid fa-play text-lg"></i> XEM NGAY
                         </button>
-                        <button id="hero-fav-btn" onclick="" class="bg-db-gray/80 hover:bg-db-gray text-white font-bold px-6 sm:px-8 py-3 rounded-xl flex items-center gap-2 border border-gray-700 backdrop-blur-md transition transform active:scale-95 text-sm sm:text-base">
+                        <button id="hero-fav-btn" onclick=""
+                            class="bg-db-gray/80 hover:bg-db-gray text-white font-bold px-6 sm:px-8 py-3 rounded-xl flex items-center gap-2 border border-gray-700 backdrop-blur-md transition transform active:scale-95 text-sm sm:text-base">
                             <i class="fa-solid fa-star text-db-gold"></i> Thêm Vào Danh Sách
                         </button>
-                        <button id="install-app-button" onclick="installApp()" class="bg-db-gray/80 hover:bg-db-gray text-white font-bold px-6 sm:px-8 py-3 rounded-xl flex items-center gap-2 border border-db-orange/50 backdrop-blur-md transition transform active:scale-95 text-sm sm:text-base">
+                        <button id="install-app-button" onclick="installApp()"
+                            class="bg-db-gray/80 hover:bg-db-gray text-white font-bold px-6 sm:px-8 py-3 rounded-xl flex items-center gap-2 border border-db-orange/50 backdrop-blur-md transition transform active:scale-95 text-sm sm:text-base">
                             <i class="fa-solid fa-download text-db-orange"></i> Cài lên màn hình chính
                         </button>
                     </div>
@@ -207,14 +264,14 @@
                 <div class="mx-auto flex h-[50px] w-[320px] items-center justify-center overflow-hidden">
                     <script>
                         atOptions = {
-                            'key': '355ab36fc85f7e50347b173ffab3a23a',
+                            'key': 'c9ec56af37754bc3b48f633e500ce5e5',
                             'format': 'iframe',
-                            'height': 50,
-                            'width': 320,
+                            'height': 60,
+                            'width': 468,
                             'params': {}
                         };
                     </script>
-                    <script src="https://bancadeltempoidea.org/22/355ab36fc85f7e50347b173ffab3a23a"></script>
+                    <script src="https://bancadeltempoidea.org/22/c9ec56af37754bc3b48f633e500ce5e5"></script>
                 </div>
             </div>
 
@@ -224,7 +281,8 @@
                     <i class="fa-solid fa-magnifying-glass text-db-orange"></i> Kết quả tìm kiếm
                     <span id="search-count" class="text-sm font-normal text-gray-400"></span>
                 </h2>
-                <div id="search-results-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6"></div>
+                <div id="search-results-grid"
+                    class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6"></div>
             </div>
 
             <!-- Saga Categories Rows -->
@@ -235,25 +293,34 @@
 
         <!-- VIEW: DRAGON BALL Z KAI SPECIAL PAGE -->
         <div id="view-dbz-kai" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-            <div class="bg-gradient-to-r from-db-card via-db-gray to-db-card p-6 sm:p-8 rounded-2xl border border-db-orange/30 flex flex-col md:flex-row items-center gap-6 shadow-2xl relative overflow-hidden">
+            <div
+                class="bg-gradient-to-r from-db-card via-db-gray to-db-card p-6 sm:p-8 rounded-2xl border border-db-orange/30 flex flex-col md:flex-row items-center gap-6 shadow-2xl relative overflow-hidden">
                 <div class="absolute -right-10 -bottom-10 opacity-10 text-db-orange text-9xl pointer-events-none">
                     <i class="fa-solid fa-bolt"></i>
                 </div>
-                <img src="https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=600&q=80" alt="Dragon Ball Z Kai" class="w-full md:w-64 h-44 object-cover rounded-xl border border-db-orange/40 shadow-lg">
+                <img src="https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=600&q=80"
+                    alt="Dragon Ball Z Kai"
+                    class="w-full md:w-64 h-44 object-cover rounded-xl border border-db-orange/40 shadow-lg">
                 <div class="space-y-3 flex-grow">
                     <div class="flex items-center gap-2">
-                        <span class="bg-db-crimson text-white text-xs font-black px-2.5 py-0.5 rounded uppercase">Đặc Biệt</span>
+                        <span class="bg-db-crimson text-white text-xs font-black px-2.5 py-0.5 rounded uppercase">Đặc
+                            Biệt</span>
                         <span class="text-xs font-extrabold text-db-gold">20 Tập Remastered HD</span>
                     </div>
-                    <h1 class="text-2xl sm:text-4xl font-black text-white">Dragon Ball Z Kai (Bảy Viên Ngọc Rồng Z Kai)</h1>
+                    <h1 class="text-2xl sm:text-4xl font-black text-white">Dragon Ball Z Kai (Bảy Viên Ngọc Rồng Z Kai)
+                    </h1>
                     <p class="text-xs sm:text-sm text-gray-300 leading-relaxed">
-                        Phiên bản cô đọng cao cấp chuẩn HD làm lại nhân kỷ niệm 20 năm thương hiệu Dragon Ball. Loại bỏ các tình tiết dư thừa, tối ưu hóa nhịp phim dồn dập, hình ảnh làm mới sắc nét và âm thanh lồng tiếng sống động!
+                        Phiên bản cô đọng cao cấp chuẩn HD làm lại nhân kỷ niệm 20 năm thương hiệu Dragon Ball. Loại bỏ
+                        các tình tiết dư thừa, tối ưu hóa nhịp phim dồn dập, hình ảnh làm mới sắc nét và âm thanh lồng
+                        tiếng sống động!
                     </p>
                     <div class="flex flex-wrap gap-2 pt-2">
-                        <button onclick="openPlayerModal('dbz-kai', 0)" class="bg-db-orange hover:bg-db-gold text-black font-black px-5 py-2 rounded-xl text-xs sm:text-sm flex items-center gap-2 shadow-lg shadow-db-orange/30">
+                        <button onclick="openPlayerModal('dbz-kai', 0)"
+                            class="bg-db-orange hover:bg-db-gold text-black font-black px-5 py-2 rounded-xl text-xs sm:text-sm flex items-center gap-2 shadow-lg shadow-db-orange/30">
                             <i class="fa-solid fa-play"></i> Phát Từ Tập 1
                         </button>
-                        <button onclick="toggleFavorite('dbz-kai')" class="bg-db-gray hover:bg-gray-700 text-white font-bold px-4 py-2 rounded-xl text-xs sm:text-sm border border-gray-700">
+                        <button onclick="toggleFavorite('dbz-kai')"
+                            class="bg-db-gray hover:bg-gray-700 text-white font-bold px-4 py-2 rounded-xl text-xs sm:text-sm border border-gray-700">
                             <i class="fa-solid fa-star text-db-gold"></i> Lưu Series
                         </button>
                     </div>
@@ -277,7 +344,8 @@
                 <h1 class="text-2xl sm:text-3xl font-black text-white flex items-center gap-3">
                     <i class="fa-solid fa-dragon text-db-orange"></i> Tất Cả Các Phần & Saga Dragon Ball
                 </h1>
-                <p class="text-sm text-gray-400 mt-1">Chọn phần phim để xem danh sách tập và bắt đầu trải nghiệm streaming</p>
+                <p class="text-sm text-gray-400 mt-1">Chọn phần phim để xem danh sách tập và bắt đầu trải nghiệm
+                    streaming</p>
             </div>
 
             <!-- Saga Selector Filter Chips -->
@@ -302,15 +370,19 @@
                 </div>
             </div>
 
-            <div id="mylist-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6"></div>
+            <div id="mylist-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6">
+            </div>
 
             <div id="mylist-empty" class="hidden flex flex-col items-center justify-center py-20 text-center space-y-4">
-                <div class="w-20 h-20 bg-db-gray rounded-full flex items-center justify-center text-db-orange text-3xl border border-db-orange/30">
+                <div
+                    class="w-20 h-20 bg-db-gray rounded-full flex items-center justify-center text-db-orange text-3xl border border-db-orange/30">
                     <i class="fa-solid fa-dragon"></i>
                 </div>
                 <h3 class="text-xl font-bold text-gray-300">Chưa lưu bộ phim nào!</h3>
-                <p class="text-sm text-gray-500 max-w-md">Hãy nhấn icon Ngôi sao trên poster phim để lưu lại danh sách xem sau.</p>
-                <button onclick="switchTab('home')" class="bg-gradient-to-r from-db-orange to-db-gold text-black font-extrabold px-6 py-2.5 rounded-xl text-sm transition">
+                <p class="text-sm text-gray-500 max-w-md">Hãy nhấn icon Ngôi sao trên poster phim để lưu lại danh sách
+                    xem sau.</p>
+                <button onclick="switchTab('home')"
+                    class="bg-gradient-to-r from-db-orange to-db-gold text-black font-extrabold px-6 py-2.5 rounded-xl text-sm transition">
                     Khám phá Dragon Ball Ngay
                 </button>
             </div>
@@ -319,46 +391,65 @@
     </main>
 
     <div class="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
-        <script async="async" data-cfasync="false" src="https://bancadeltempoidea.org/21/0c1eca53c380eb83d0306447424f67db"></script>
+        <script async="async" data-cfasync="false"
+            src="https://bancadeltempoidea.org/21/0c1eca53c380eb83d0306447424f67db"></script>
         <div id="container-0c1eca53c380eb83d0306447424f67db"></div>
     </div>
 
-    <div id="install-help-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="install-help-title">
+    <div id="install-help-modal"
+        class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-sm" role="dialog"
+        aria-modal="true" aria-labelledby="install-help-title">
         <div class="w-full max-w-md rounded-2xl border border-db-orange/40 bg-db-card p-6 shadow-2xl">
             <div class="flex items-start justify-between gap-4">
                 <div>
-                    <h2 id="install-help-title" class="text-xl font-black text-white">Thêm Son Kun vào màn hình chính</h2>
-                    <p class="mt-2 text-sm text-gray-300">Tạo biểu tượng để mở trang web trong giao diện giống ứng dụng.</p>
+                    <h2 id="install-help-title" class="text-xl font-black text-white">Thêm Son Kun vào màn hình chính
+                    </h2>
+                    <p class="mt-2 text-sm text-gray-300">Tạo biểu tượng để mở trang web trong giao diện giống ứng dụng.
+                    </p>
                 </div>
-                <button onclick="closeInstallHelp()" class="rounded-lg p-2 text-gray-400 hover:bg-db-gray hover:text-white" aria-label="Đóng hướng dẫn">
+                <button onclick="closeInstallHelp()"
+                    class="rounded-lg p-2 text-gray-400 hover:bg-db-gray hover:text-white" aria-label="Đóng hướng dẫn">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
             <div class="mt-5 space-y-4 text-sm text-gray-200">
                 <div id="install-help-ios" class="hidden rounded-xl bg-db-gray/70 p-4">
                     <p class="font-bold text-db-gold">iPhone / iPad (Safari)</p>
-                    <p class="mt-1">Mở trang bằng Safari, nhấn <strong>Chia sẻ</strong>, chọn <strong>Thêm vào Màn hình chính</strong>, rồi nhấn <strong>Thêm</strong>. Nếu chưa thấy mục này, cuộn xuống trong bảng Chia sẻ hoặc kiểm tra <strong>Sửa tác vụ</strong>.</p>
+                    <p class="mt-1">Mở trang bằng Safari, nhấn <strong>Chia sẻ</strong>, chọn <strong>Thêm vào Màn hình
+                            chính</strong>, rồi nhấn <strong>Thêm</strong>. Nếu chưa thấy mục này, cuộn xuống trong bảng
+                        Chia sẻ hoặc kiểm tra <strong>Sửa tác vụ</strong>.</p>
                 </div>
                 <div id="install-help-android" class="hidden rounded-xl bg-db-gray/70 p-4">
                     <p class="font-bold text-db-gold">Android (Chrome)</p>
-                    <p class="mt-1">Mở trang trực tiếp bằng Chrome, nhấn menu <strong>⋮</strong>, chọn <strong>Cài đặt ứng dụng</strong> hoặc <strong>Thêm vào màn hình chính</strong>, rồi xác nhận. Trình duyệt chỉ mở lời nhắc cài đặt tự động khi website đáp ứng điều kiện PWA.</p>
+                    <p class="mt-1">Mở trang trực tiếp bằng Chrome, nhấn menu <strong>⋮</strong>, chọn <strong>Cài đặt
+                            ứng dụng</strong> hoặc <strong>Thêm vào màn hình chính</strong>, rồi xác nhận. Trình duyệt
+                        chỉ mở lời nhắc cài đặt tự động khi website đáp ứng điều kiện PWA.</p>
                 </div>
                 <div id="install-help-other" class="hidden rounded-xl bg-db-gray/70 p-4">
                     <p class="font-bold text-db-gold">Trình duyệt này</p>
-                    <p class="mt-1">Mở menu trình duyệt và tìm <strong>Cài đặt ứng dụng</strong> hoặc <strong>Thêm vào màn hình chính</strong>. Nếu không có tùy chọn này, hãy thử mở website bằng Chrome trên Android hoặc Safari trên iPhone/iPad.</p>
+                    <p class="mt-1">Mở menu trình duyệt và tìm <strong>Cài đặt ứng dụng</strong> hoặc <strong>Thêm vào
+                            màn hình chính</strong>. Nếu không có tùy chọn này, hãy thử mở website bằng Chrome trên
+                        Android hoặc Safari trên iPhone/iPad.</p>
                 </div>
             </div>
-            <button onclick="closeInstallHelp()" class="mt-5 w-full rounded-xl bg-db-orange px-4 py-3 font-black text-black hover:bg-db-gold">Đã hiểu</button>
+            <button onclick="closeInstallHelp()"
+                class="mt-5 w-full rounded-xl bg-db-orange px-4 py-3 font-black text-black hover:bg-db-gold">Đã
+                hiểu</button>
         </div>
     </div>
 
-    <div id="auth-modal" class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/80 p-4 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="auth-modal-title">
+    <div id="auth-modal"
+        class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/80 p-4 backdrop-blur-sm" role="dialog"
+        aria-modal="true" aria-labelledby="auth-modal-title">
         <div class="relative w-full max-w-md rounded-2xl border border-db-orange/30 bg-db-card p-6 shadow-2xl sm:p-8">
-            <button onclick="closeAuthModal()" class="absolute right-3 top-3 rounded-lg p-2 text-gray-400 transition hover:bg-db-gray hover:text-white" aria-label="Đóng đăng nhập">
+            <button onclick="closeAuthModal()"
+                class="absolute right-3 top-3 rounded-lg p-2 text-gray-400 transition hover:bg-db-gray hover:text-white"
+                aria-label="Đóng đăng nhập">
                 <i class="fa-solid fa-xmark"></i>
             </button>
             <div class="mb-6 text-center">
-                <div class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-tr from-db-crimson via-db-orange to-db-gold text-xl text-black shadow-lg shadow-db-orange/30">
+                <div
+                    class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-tr from-db-crimson via-db-orange to-db-gold text-xl text-black shadow-lg shadow-db-orange/30">
                     <i class="fa-solid fa-dragon"></i>
                 </div>
                 <h2 id="auth-modal-title" class="text-2xl font-black text-white">Chào mừng đến với Son Kun</h2>
@@ -366,12 +457,16 @@
             </div>
 
             <div id="auth-provider-actions" class="space-y-3">
-                <button onclick="signInWithGoogle()" class="flex w-full items-center justify-center gap-3 rounded-xl bg-white px-4 py-3 text-sm font-bold text-gray-800 transition hover:bg-gray-100">
+                <button onclick="signInWithGoogle()"
+                    class="flex w-full items-center justify-center gap-3 rounded-xl bg-white px-4 py-3 text-sm font-bold text-gray-800 transition hover:bg-gray-100">
                     <svg class="h-4 w-4 shrink-0" width="16" height="16" viewBox="0 0 48 48" aria-hidden="true">
-                        <path fill="#4285F4" d="M43.6 24.5c0-1.4-.1-2.8-.4-4.1H24v7.8h11c-.5 2.5-1.9 4.6-4.1 6v5.1h6.6c3.9-3.6 6.1-8.8 6.1-14.8Z"/>
-                        <path fill="#34A853" d="M24 44c5.5 0 10.1-1.8 13.5-4.8l-6.6-5.1c-1.8 1.2-4.1 2-6.9 2-5.3 0-9.8-3.6-11.4-8.4H5.8v5.3C9.2 39.5 16 44 24 44Z"/>
-                        <path fill="#FBBC05" d="M12.6 27.7a12.1 12.1 0 0 1 0-7.4V15H5.8a20 20 0 0 0 0 18l6.8-5.3Z"/>
-                        <path fill="#EA4335" d="M24 11.9c3 0 5.7 1 7.8 3.1l5.8-5.8C34.1 6 29.5 4 24 4 16 4 9.2 8.5 5.8 15l6.8 5.3c1.6-4.8 6.1-8.4 11.4-8.4Z"/>
+                        <path fill="#4285F4"
+                            d="M43.6 24.5c0-1.4-.1-2.8-.4-4.1H24v7.8h11c-.5 2.5-1.9 4.6-4.1 6v5.1h6.6c3.9-3.6 6.1-8.8 6.1-14.8Z" />
+                        <path fill="#34A853"
+                            d="M24 44c5.5 0 10.1-1.8 13.5-4.8l-6.6-5.1c-1.8 1.2-4.1 2-6.9 2-5.3 0-9.8-3.6-11.4-8.4H5.8v5.3C9.2 39.5 16 44 24 44Z" />
+                        <path fill="#FBBC05" d="M12.6 27.7a12.1 12.1 0 0 1 0-7.4V15H5.8a20 20 0 0 0 0 18l6.8-5.3Z" />
+                        <path fill="#EA4335"
+                            d="M24 11.9c3 0 5.7 1 7.8 3.1l5.8-5.8C34.1 6 29.5 4 24 4 16 4 9.2 8.5 5.8 15l6.8 5.3c1.6-4.8 6.1-8.4 11.4-8.4Z" />
                     </svg>
                     Tiếp tục với Google
                 </button>
@@ -381,7 +476,8 @@
             </div>
 
             <div id="auth-account-panel" class="hidden space-y-4 text-center">
-                <div class="mx-auto flex h-14 w-14 items-center justify-center overflow-hidden rounded-full border border-db-orange/40 bg-db-gray text-xl text-db-orange">
+                <div
+                    class="mx-auto flex h-14 w-14 items-center justify-center overflow-hidden rounded-full border border-db-orange/40 bg-db-gray text-xl text-db-orange">
                     <img id="auth-user-photo" class="hidden h-full w-full object-cover" alt="">
                     <i id="auth-user-icon" class="fa-regular fa-user"></i>
                 </div>
@@ -389,7 +485,8 @@
                     <p id="auth-user-name" class="font-bold text-white"></p>
                     <p id="auth-user-email" class="mt-1 text-sm text-gray-400"></p>
                 </div>
-                <button onclick="signOutUser()" class="w-full rounded-xl border border-gray-700 bg-db-gray px-4 py-3 text-sm font-bold text-white transition hover:border-db-orange hover:text-db-orange">
+                <button onclick="signOutUser()"
+                    class="w-full rounded-xl border border-gray-700 bg-db-gray px-4 py-3 text-sm font-bold text-white transition hover:border-db-orange hover:text-db-orange">
                     Đăng xuất
                 </button>
             </div>
@@ -397,31 +494,39 @@
     </div>
 
     <!-- MOVIE DETAIL & EPISODE PLAYER MODAL -->
-    <div id="player-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-2 sm:p-4 bg-black/95 backdrop-blur-md overflow-y-auto">
-        <div class="relative w-full max-w-5xl bg-db-card rounded-2xl overflow-hidden shadow-2xl border border-db-orange/30 my-auto">
+    <div id="player-modal"
+        class="fixed inset-0 z-50 hidden flex items-center justify-center p-2 sm:p-4 bg-black/95 backdrop-blur-md overflow-y-auto">
+        <div
+            class="relative w-full max-w-5xl bg-db-card rounded-2xl overflow-hidden shadow-2xl border border-db-orange/30 my-auto">
             <!-- Close Button -->
-            <button onclick="closePlayerModal()" class="absolute top-3 right-3 z-30 bg-black/80 hover:bg-db-orange hover:text-black text-white w-9 h-9 rounded-full flex items-center justify-center transition border border-gray-700">
+            <button onclick="closePlayerModal()"
+                class="absolute top-3 right-3 z-30 bg-black/80 hover:bg-db-orange hover:text-black text-white w-9 h-9 rounded-full flex items-center justify-center transition border border-gray-700">
                 <i class="fa-solid fa-xmark text-lg"></i>
             </button>
 
             <!-- Video Player Container (Iframe Stream) -->
-            <div class="relative w-full aspect-video bg-black flex items-center justify-center border-b border-db-orange/20 shadow-inner">
+            <div
+                class="relative w-full aspect-video bg-black flex items-center justify-center border-b border-db-orange/20 shadow-inner">
                 <div id="video-frame-container" class="w-full h-full"></div>
             </div>
 
             <!-- Player Controls & Info Body -->
             <div class="p-4 sm:p-6 space-y-6 max-h-[55vh] overflow-y-auto">
                 <!-- Top Header & Controls -->
-                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-gray-800 pb-4">
+                <div
+                    class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-gray-800 pb-4">
                     <div>
                         <div class="flex items-center gap-2 mb-1">
-                            <span id="modal-saga-badge" class="bg-db-orange/20 text-db-orange text-[11px] font-extrabold px-2 py-0.5 rounded border border-db-orange/30">
+                            <span id="modal-saga-badge"
+                                class="bg-db-orange/20 text-db-orange text-[11px] font-extrabold px-2 py-0.5 rounded border border-db-orange/30">
                                 Dragon Ball Z Kai
                             </span>
-                            <span id="modal-current-ep-badge" class="bg-db-gold text-black font-black text-[11px] px-2 py-0.5 rounded">
+                            <span id="modal-current-ep-badge"
+                                class="bg-db-gold text-black font-black text-[11px] px-2 py-0.5 rounded">
                                 Tập 1
                             </span>
-                            <span id="modal-ep-title" class="text-xs text-gray-400 font-semibold truncate max-w-xs"></span>
+                            <span id="modal-ep-title"
+                                class="text-xs text-gray-400 font-semibold truncate max-w-xs"></span>
                         </div>
                         <h2 id="modal-title" class="text-xl sm:text-2xl font-black text-white">--</h2>
                     </div>
@@ -430,21 +535,28 @@
                     <div class="flex flex-wrap items-center gap-2">
                         <!-- Vietsub vs Thuyết Minh Switcher -->
                         <div class="flex items-center bg-db-gray rounded-lg p-1 border border-gray-700 text-xs">
-                            <button id="btn-sub-vietsub" onclick="setAudioServer('Vietsub')" class="px-3 py-1 rounded-md font-extrabold text-white bg-db-orange">Vietsub</button>
-                            <button id="btn-sub-thuyetminh" onclick="setAudioServer('Thuyết Minh')" class="px-3 py-1 rounded-md font-extrabold text-gray-400 hover:text-white">Thuyết Minh</button>
+                            <button id="btn-sub-vietsub" onclick="setAudioServer('Vietsub')"
+                                class="px-3 py-1 rounded-md font-extrabold text-white bg-db-orange">Vietsub</button>
+                            <button id="btn-sub-thuyetminh" onclick="setAudioServer('Thuyết Minh')"
+                                class="px-3 py-1 rounded-md font-extrabold text-gray-400 hover:text-white">Thuyết
+                                Minh</button>
                         </div>
 
                         <!-- Server Selector Buttons -->
                         <div class="flex items-center bg-db-gray rounded-lg p-1 border border-gray-700 text-xs">
-                            <button id="server-1" onclick="switchServer(1)" class="px-2.5 py-1 rounded font-bold text-db-gold bg-black/50">VIP 1</button>
-                            <button id="server-2" onclick="switchServer(2)" class="px-2.5 py-1 rounded font-bold text-gray-400 hover:text-white">HD 2</button>
+                            <button id="server-1" onclick="switchServer(1)"
+                                class="px-2.5 py-1 rounded font-bold text-db-gold bg-black/50">VIP 1</button>
+                            <button id="server-2" onclick="switchServer(2)"
+                                class="px-2.5 py-1 rounded font-bold text-gray-400 hover:text-white">HD 2</button>
                         </div>
 
                         <!-- Quick Ep Controls -->
-                        <button onclick="playNextEpisode(-1)" class="bg-db-gray hover:bg-gray-700 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1">
+                        <button onclick="playNextEpisode(-1)"
+                            class="bg-db-gray hover:bg-gray-700 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1">
                             <i class="fa-solid fa-backward-step"></i> Tập Trước
                         </button>
-                        <button onclick="playNextEpisode(1)" class="bg-db-orange hover:bg-db-gold text-black px-3 py-1.5 rounded-lg text-xs font-black transition flex items-center gap-1">
+                        <button onclick="playNextEpisode(1)"
+                            class="bg-db-orange hover:bg-db-gold text-black px-3 py-1.5 rounded-lg text-xs font-black transition flex items-center gap-1">
                             Tập Tiếp <i class="fa-solid fa-forward-step"></i>
                         </button>
                     </div>
@@ -481,7 +593,8 @@
                             <span>Tổng số tập:</span>
                             <span id="modal-total-ep" class="font-bold text-white">20 Tập</span>
                         </div>
-                        <button id="modal-fav-btn" onclick="" class="w-full mt-2 bg-db-gray hover:bg-db-orange hover:text-black text-white py-2 rounded-lg text-xs font-bold transition border border-db-orange/40 flex items-center justify-center gap-2">
+                        <button id="modal-fav-btn" onclick=""
+                            class="w-full mt-2 bg-db-gray hover:bg-db-orange hover:text-black text-white py-2 rounded-lg text-xs font-bold transition border border-db-orange/40 flex items-center justify-center gap-2">
                             <i class="fa-solid fa-star text-db-gold"></i> Lưu Phim Này
                         </button>
                     </div>
@@ -494,12 +607,15 @@
                             <i class="fa-solid fa-list-ol text-db-orange"></i> Danh Sách Tập Phim
                         </h3>
                         <div class="flex items-center gap-3">
-                            <input type="text" id="ep-filter-input" oninput="filterEpisodeButtons()" placeholder="Tìm nhanh tập..." class="bg-db-gray border border-gray-700 text-xs text-white px-2.5 py-1 rounded-md focus:outline-none focus:border-db-orange w-32 sm:w-40">
+                            <input type="text" id="ep-filter-input" oninput="filterEpisodeButtons()"
+                                placeholder="Tìm nhanh tập..."
+                                class="bg-db-gray border border-gray-700 text-xs text-white px-2.5 py-1 rounded-md focus:outline-none focus:border-db-orange w-32 sm:w-40">
                             <span class="text-xs text-gray-400" id="modal-watched-count">Đã xem 0 tập</span>
                         </div>
                     </div>
 
-                    <div id="episodes-grid" class="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-8 gap-2 max-h-52 overflow-y-auto p-2 bg-db-dark/60 rounded-xl border border-gray-800">
+                    <div id="episodes-grid"
+                        class="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-8 gap-2 max-h-52 overflow-y-auto p-2 bg-db-dark/60 rounded-xl border border-gray-800">
                         <!-- Dynamic episode buttons -->
                     </div>
                 </div>
@@ -509,12 +625,14 @@
                     <h3 class="text-sm font-extrabold text-white flex items-center gap-2">
                         <i class="fa-solid fa-comments text-db-orange"></i> Thảo Luận Fan Dragon Ball
                     </h3>
-                    
+
                     <!-- Comment Input -->
                     <div class="flex gap-2">
-                        <input type="text" id="comment-input" maxlength="1000" placeholder="Đăng nhập Google để bình luận..."
-                               class="flex-grow bg-db-gray border border-gray-700 text-xs sm:text-sm text-white rounded-xl px-4 py-2 focus:outline-none focus:border-db-orange">
-                        <button onclick="addComment()" class="bg-db-orange hover:bg-db-gold text-black font-extrabold px-4 py-2 rounded-xl text-xs sm:text-sm transition shadow-lg shadow-db-orange/30">
+                        <input type="text" id="comment-input" maxlength="1000"
+                            placeholder="Đăng nhập Google để bình luận..."
+                            class="flex-grow bg-db-gray border border-gray-700 text-xs sm:text-sm text-white rounded-xl px-4 py-2 focus:outline-none focus:border-db-orange">
+                        <button onclick="addComment()"
+                            class="bg-db-orange hover:bg-db-gold text-black font-extrabold px-4 py-2 rounded-xl text-xs sm:text-sm transition shadow-lg shadow-db-orange/30">
                             Gửi
                         </button>
                     </div>
@@ -533,18 +651,23 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4 text-center sm:text-left">
             <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
                 <div class="flex items-center gap-2">
-                    <div class="w-7 h-7 rounded-full bg-db-orange flex items-center justify-center text-black font-bold">
+                    <div
+                        class="w-7 h-7 rounded-full bg-db-orange flex items-center justify-center text-black font-bold">
                         <i class="fa-solid fa-dragon"></i>
                     </div>
-                    <span class="text-lg font-black text-transparent bg-clip-text bg-gradient-to-r from-db-orange to-db-gold">SON KUN</span>
+                    <span
+                        class="text-lg font-black text-transparent bg-clip-text bg-gradient-to-r from-db-orange to-db-gold">SON
+                        KUN</span>
                 </div>
                 <div class="flex space-x-6 text-gray-400">
-                    <a href="#" class="hover:text-db-orange transition"><i class="fa-brands fa-facebook text-lg"></i></a>
+                    <a href="#" class="hover:text-db-orange transition"><i
+                            class="fa-brands fa-facebook text-lg"></i></a>
                     <a href="#" class="hover:text-db-orange transition"><i class="fa-brands fa-youtube text-lg"></i></a>
                     <a href="#" class="hover:text-db-orange transition"><i class="fa-brands fa-discord text-lg"></i></a>
                 </div>
             </div>
-            <p class="text-gray-600">Trang web tổng hợp đầy đủ các phần phim Bảy Viên Ngọc Rồng (Dragon Ball, Dragon Ball Z, Dragon Ball Z Kai 20 tập HD, GT, Super & Movies).</p>
+            <p class="text-gray-600">Trang web tổng hợp đầy đủ các phần phim Bảy Viên Ngọc Rồng (Dragon Ball, Dragon
+                Ball Z, Dragon Ball Z Kai 20 tập HD, GT, Super & Movies).</p>
         </div>
     </footer>
 
@@ -565,4 +688,5 @@
     <script type="module" src="./js/services/firebaseComments.js"></script>
     <script data-cfasync="false" src="https://bancadeltempoidea.org/14/eaf50ac218591bdadf68fb89c1046142"></script>
 </body>
+
 </html>
