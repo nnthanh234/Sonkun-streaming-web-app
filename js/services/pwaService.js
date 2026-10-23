@@ -10,9 +10,20 @@ function initPwaInstall() {
     const isInstalled = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
 
     if ('serviceWorker' in navigator && window.isSecureContext) {
-        navigator.serviceWorker.register('./service-worker.js').catch(error => {
-            console.error('Không thể đăng ký service worker:', error);
+        const hadController = Boolean(navigator.serviceWorker.controller);
+        let refreshingPage = false;
+
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+            if (!hadController || refreshingPage) return;
+            refreshingPage = true;
+            window.location.reload();
         });
+
+        navigator.serviceWorker.register('./service-worker.js', { updateViaCache: 'none' })
+            .then(registration => registration.update())
+            .catch(error => {
+                console.error('Không thể cập nhật service worker:', error);
+            });
     }
 
     if (isInstalled) {

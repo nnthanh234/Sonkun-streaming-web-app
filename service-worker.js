@@ -1,4 +1,4 @@
-const CACHE_NAME = 'son-kun-shell-v12';
+const CACHE_NAME = 'son-kun-shell-v13';
 const APP_SHELL = [
     './index.html',
     './styles/tailwind.css',
@@ -48,17 +48,42 @@ self.addEventListener('fetch', event => {
     const request = event.request;
     if (request.method !== 'GET') return;
 
-    if (request.mode === 'navigate') {
-        event.respondWith(
-            fetch(request)
-                .catch(() => caches.match(request).then(cached => cached || caches.match('./index.html')))
-        );
-        return;
-    }
-
     if (new URL(request.url).origin !== self.location.origin) return;
 
-    event.respondWith(
-        caches.match(request).then(cached => cached || fetch(request))
-    );
+    const isAppCode = request.mode === 'navigate'
+        || /\.(?:html|js|css|json)$/.test(new URL(request.url).pathname);
+
+    event.respondWith((async () => {
+        const cache = await caches.open(CACHE_NAME);
+        if (!isAppCode) {
+            const cached = await cache.match(request);
+            if (cached) return cached;
+        }
+
+        let response;
+
+        try {
+            response = await fetch(request, { cache: 'no-cache' });
+        } catch (error) {
+            const cached = await cache.match(request);
+            if (cached) return cached;
+
+            if (request.mode === 'navigate') {
+                const appShell = await cache.match('./index.html');
+                if (appShell) return appShell;
+            }
+
+            throw error;
+        }
+
+        if (response.ok) {
+            try {
+                await cache.put(request, response.clone());
+            } catch (error) {
+                console.error('Không thể cập nhật cache ứng dụng:', error);
+            }
+        }
+
+        return response;
+    })());
 });
