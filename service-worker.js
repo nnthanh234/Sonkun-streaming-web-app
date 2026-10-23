@@ -1,4 +1,4 @@
-const CACHE_NAME = 'son-kun-shell-v19';
+const CACHE_NAME = 'son-kun-shell-v20';
 const APP_SHELL = [
     './index.html',
     './styles/tailwind.css',
