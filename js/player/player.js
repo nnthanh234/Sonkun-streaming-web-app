@@ -22,7 +22,7 @@ function openPlayerModal(movieId, epIndex = 0) {
     document.body.style.overflow = 'hidden';
 }
 
-function updatePlayerVideo() {
+function updatePlayerVideo(autoplay = false) {
     const movie = state.currentMovie;
     const epList = movie.episodesList || [];
     const epData = epList[state.currentEpIndex] || { title: 'Tập ' + (state.currentEpIndex + 1), videoUrl: movie.videoUrl, desc: movie.description };
@@ -32,30 +32,51 @@ function updatePlayerVideo() {
     document.getElementById('modal-desc').innerText = epData.desc || movie.description;
 
     const videoUrl = new URL(epData.videoUrl);
+    const isBunnyPlayer = videoUrl.hostname.endsWith('mediadelivery.net');
     if (videoUrl.searchParams.has('autoplay')) {
-        videoUrl.searchParams.set('autoplay', videoUrl.hostname.endsWith('mediadelivery.net') ? 'false' : '0');
+        videoUrl.searchParams.set('autoplay', autoplay
+            ? (isBunnyPlayer ? 'true' : '1')
+            : (isBunnyPlayer ? 'false' : '0'));
+    } else if (autoplay && (isBunnyPlayer || videoUrl.hostname.includes('youtube.com'))) {
+        videoUrl.searchParams.set('autoplay', isBunnyPlayer ? 'true' : '1');
     }
 
-    // Render iFrame Player dynamically
     const container = document.getElementById('video-frame-container');
-    container.innerHTML = `
-        <iframe src="${videoUrl.href}"
-                title="${movie.title} - ${epData.title}" 
-                class="w-full h-full border-0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen>
-        </iframe>
-    `;
+    if (autoplay) {
+        container.innerHTML = `
+            <iframe src="${videoUrl.href}"
+                    title="${movie.title} - ${epData.title}"
+                    class="w-full h-full border-0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+            </iframe>
+        `;
 
-    // Mark watched in localStorage
-    markEpisodeAsWatched(movie.id, state.currentEpIndex);
-    updateWatchedCounter();
-    renderDBZKaiPage();
+        markEpisodeAsWatched(movie.id, state.currentEpIndex);
+        updateWatchedCounter();
+        renderDBZKaiPage();
+        return;
+    }
+
+    container.innerHTML = `
+        <button type="button" onclick="startEpisodePlayback()"
+                aria-label="Phát ${epData.title || `Tập ${state.currentEpIndex + 1}`}"
+                class="group flex h-full w-full items-center justify-center bg-black text-white">
+            <span class="flex h-20 w-20 items-center justify-center rounded-full bg-db-orange text-3xl shadow-lg shadow-db-orange/40 transition group-hover:scale-110 group-hover:bg-db-gold">
+                <i class="fa-solid fa-play ml-1"></i>
+            </span>
+        </button>
+    `;
+}
+
+function startEpisodePlayback() {
+    if (!state.currentMovie) return;
+
+    requestPlaybackPopupAd();
+    updatePlayerVideo(true);
 }
 
 function playEpisode(epIndex) {
-    requestPlaybackPopupAd();
-
     state.currentEpIndex = epIndex;
     updatePlayerVideo();
     renderEpisodeGrid();
