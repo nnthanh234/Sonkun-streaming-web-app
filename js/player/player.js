@@ -22,7 +22,7 @@ function openPlayerModal(movieId, epIndex = 0) {
     document.body.style.overflow = 'hidden';
 }
 
-function updatePlayerVideo(autoplay = false) {
+function updatePlayerVideo(loadPlayer = false) {
     const movie = state.currentMovie;
     const epList = movie.episodesList || [];
     const epData = epList[state.currentEpIndex] || { title: 'Tập ' + (state.currentEpIndex + 1), videoUrl: movie.videoUrl, desc: movie.description };
@@ -34,15 +34,11 @@ function updatePlayerVideo(autoplay = false) {
     const videoUrl = new URL(epData.videoUrl);
     const isBunnyPlayer = videoUrl.hostname.endsWith('mediadelivery.net');
     if (videoUrl.searchParams.has('autoplay')) {
-        videoUrl.searchParams.set('autoplay', autoplay
-            ? (isBunnyPlayer ? 'true' : '1')
-            : (isBunnyPlayer ? 'false' : '0'));
-    } else if (autoplay && (isBunnyPlayer || videoUrl.hostname.includes('youtube.com'))) {
-        videoUrl.searchParams.set('autoplay', isBunnyPlayer ? 'true' : '1');
+        videoUrl.searchParams.set('autoplay', isBunnyPlayer ? 'false' : '0');
     }
 
     const container = document.getElementById('video-frame-container');
-    if (autoplay) {
+    if (loadPlayer) {
         container.innerHTML = `
             <iframe src="${videoUrl.href}"
                     title="${movie.title} - ${epData.title}"
@@ -78,7 +74,6 @@ function startEpisodePlayback() {
 
 function playEpisode(epIndex) {
     state.currentEpIndex = epIndex;
-    updatePlayerVideo();
     renderEpisodeGrid();
     renderComments();
 }
