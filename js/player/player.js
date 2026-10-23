@@ -22,8 +22,8 @@ function openPlayerModal(movieId, epIndex = 0) {
     document.body.style.overflow = 'hidden';
 }
 
-function updatePlayerVideo(autoplay = false) {
-   const movie = state.currentMovie;
+function updatePlayerVideo() {
+    const movie = state.currentMovie;
     const epList = movie.episodesList || [];
     const epData = epList[state.currentEpIndex] || { title: 'Tập ' + (state.currentEpIndex + 1), videoUrl: movie.videoUrl, desc: movie.description };
 
@@ -32,48 +32,20 @@ function updatePlayerVideo(autoplay = false) {
     document.getElementById('modal-desc').innerText = epData.desc || movie.description;
 
     const videoUrl = new URL(epData.videoUrl);
-    const isBunnyPlayer = videoUrl.hostname.endsWith('mediadelivery.net');
-    if (videoUrl.searchParams.has('autoplay')) {
-        videoUrl.searchParams.set('autoplay', autoplay
-            ? (isBunnyPlayer ? 'true' : '1')
-            : (isBunnyPlayer ? 'false' : '0'));
-    } else if (autoplay && (isBunnyPlayer || videoUrl.hostname.includes('youtube.com'))) {
-        videoUrl.searchParams.set('autoplay', isBunnyPlayer ? 'true' : '1');
-    }
 
     const container = document.getElementById('video-frame-container');
-    if (autoplay) {
-        container.innerHTML = `
-            <iframe src="${videoUrl.href}"
-                    title="${movie.title} - ${epData.title}"
-                    class="w-full h-full border-0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen>
-            </iframe>
-        `;
-
-        markEpisodeAsWatched(movie.id, state.currentEpIndex);
-        updateWatchedCounter();
-        renderDBZKaiPage();
-        return;
-    }
-
     container.innerHTML = `
-        <button type="button" onclick="startEpisodePlayback()"
-                aria-label="Phát ${epData.title || `Tập ${state.currentEpIndex + 1}`}"
-                class="group flex h-full w-full items-center justify-center bg-black text-white">
-            <span class="flex h-20 w-20 items-center justify-center rounded-full bg-db-orange text-3xl shadow-lg shadow-db-orange/40 transition group-hover:scale-110 group-hover:bg-db-gold">
-                <i class="fa-solid fa-play ml-1"></i>
-            </span>
-        </button>
+        <iframe src="${videoUrl.href}"
+                title="${movie.title} - ${epData.title}"
+                class="w-full h-full border-0"
+                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+        </iframe>
     `;
-}
 
-function startEpisodePlayback() {
-    if (!state.currentMovie) return;
-
-    requestPlaybackPopupAd();
-    updatePlayerVideo(true);
+    markEpisodeAsWatched(movie.id, state.currentEpIndex);
+    updateWatchedCounter();
+    renderDBZKaiPage();
 }
 
 function playEpisode(epIndex) {
