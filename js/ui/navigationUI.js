@@ -52,6 +52,8 @@ function switchTab(tab) {
         document.getElementById('view-mylist').classList.remove('hidden');
         renderMyList();
     }
+
+    window.dispatchEvent(new CustomEvent('sonkun:navigate', { detail: { tab } }));
 }
 
 function toggleMobileMenu() {
