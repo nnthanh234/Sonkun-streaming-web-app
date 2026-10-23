@@ -1,10 +1,8 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js';
 import {
-    FacebookAuthProvider,
     GoogleAuthProvider,
     getAdditionalUserInfo,
     getAuth,
-    linkWithPopup,
     onAuthStateChanged,
     signInWithPopup,
     signOut
@@ -33,10 +31,6 @@ function updateAccountPanel(user) {
 
     document.getElementById('auth-user-name').textContent = user.displayName || 'Tài khoản Son Kun';
     document.getElementById('auth-user-email').textContent = user.email || '';
-
-    const hasFacebookProvider = user.providerData.some(provider => provider.providerId === 'facebook.com');
-    document.getElementById('auth-link-facebook-button').classList.toggle('hidden', hasFacebookProvider);
-    document.getElementById('auth-facebook-linked').classList.toggle('hidden', !hasFacebookProvider);
 
     const photo = document.getElementById('auth-user-photo');
     const icon = document.getElementById('auth-user-icon');
@@ -94,29 +88,6 @@ function describeAuthError(error) {
     }
 }
 
-function describeLinkError(error) {
-    switch (error.code) {
-        case 'auth/credential-already-in-use':
-            return 'Tài khoản Facebook này đã được liên kết với một tài khoản Son Kun khác.';
-        case 'auth/provider-already-linked':
-            return 'Tài khoản Facebook đã được liên kết với tài khoản Son Kun này.';
-        case 'auth/requires-recent-login':
-            return 'Phiên đăng nhập đã cũ. Hãy đăng nhập lại rồi thử liên kết Facebook.';
-        case 'auth/popup-closed-by-user':
-            return 'Bạn đã đóng cửa sổ Facebook trước khi hoàn tất liên kết.';
-        case 'auth/popup-blocked':
-            return 'Trình duyệt đã chặn cửa sổ Facebook. Hãy cho phép popup rồi thử lại.';
-        case 'auth/unauthorized-domain':
-            return 'Tên miền hiện tại chưa được thêm vào Authorized domains trong Firebase.';
-        case 'auth/operation-not-allowed':
-            return 'Facebook chưa được bật trong Firebase Authentication.';
-        case 'auth/network-request-failed':
-            return 'Không thể kết nối dịch vụ xác thực. Kiểm tra mạng rồi thử lại.';
-        default:
-            return 'Không thể liên kết Facebook. Vui lòng thử lại sau.';
-    }
-}
-
 async function signInWithProvider(provider) {
     const configuredAuth = ensureAuthConfigured();
     if (!configuredAuth) return;
@@ -149,30 +120,6 @@ window.signInWithGoogle = () => {
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: 'select_account' });
     return signInWithProvider(provider);
-};
-window.signInWithFacebook = () => {
-    const provider = new FacebookAuthProvider();
-    return signInWithProvider(provider);
-};
-
-window.linkFacebookAccount = async () => {
-    const configuredAuth = ensureAuthConfigured();
-    if (!configuredAuth) return;
-    if (!configuredAuth.currentUser) {
-        showToast('Hãy đăng nhập bằng phương thức đang dùng trước khi liên kết Facebook.', 'error');
-        return;
-    }
-
-    try {
-        const result = await linkWithPopup(configuredAuth.currentUser, new FacebookAuthProvider());
-        currentUser = result.user;
-        updateAuthButtons(currentUser);
-        updateAccountPanel(currentUser);
-        showToast('Đã liên kết Facebook với tài khoản Son Kun.');
-    } catch (error) {
-        console.error('Liên kết Facebook thất bại:', error);
-        showToast(describeLinkError(error), 'error');
-    }
 };
 
 window.signOutUser = async () => {

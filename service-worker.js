@@ -1,4 +1,4 @@
-const CACHE_NAME = 'son-kun-shell-v7';
+const CACHE_NAME = 'son-kun-shell-v9';
 const APP_SHELL = [
     './index.html',
     './privacy-policy.html',
