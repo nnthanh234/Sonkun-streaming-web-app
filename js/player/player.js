@@ -31,10 +31,15 @@ function updatePlayerVideo() {
     document.getElementById('modal-ep-title').innerText = epData.title || '';
     document.getElementById('modal-desc').innerText = epData.desc || movie.description;
 
+    const videoUrl = new URL(epData.videoUrl);
+    if (videoUrl.searchParams.has('autoplay')) {
+        videoUrl.searchParams.set('autoplay', videoUrl.hostname.endsWith('mediadelivery.net') ? 'false' : '0');
+    }
+
     // Render iFrame Player dynamically
     const container = document.getElementById('video-frame-container');
     container.innerHTML = `
-        <iframe src="${epData.videoUrl}" 
+        <iframe src="${videoUrl.href}"
                 title="${movie.title} - ${epData.title}" 
                 class="w-full h-full border-0" 
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
@@ -173,6 +178,7 @@ function updateModalFavButton() {
 }
 
 function closePlayerModal() {
+    window.stopCommentsSubscription?.();
     document.getElementById('player-modal').classList.add('hidden');
     document.body.style.overflow = 'auto';
     document.getElementById('video-frame-container').innerHTML = '';

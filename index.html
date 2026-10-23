@@ -506,7 +506,7 @@
                     
                     <!-- Comment Input -->
                     <div class="flex gap-2">
-                        <input type="text" id="comment-input" placeholder="Nhập cảm nghĩ của bạn về tập phim này..." 
+                        <input type="text" id="comment-input" maxlength="1000" placeholder="Đăng nhập Google để bình luận..."
                                class="flex-grow bg-db-gray border border-gray-700 text-xs sm:text-sm text-white rounded-xl px-4 py-2 focus:outline-none focus:border-db-orange">
                         <button onclick="addComment()" class="bg-db-orange hover:bg-db-gold text-black font-extrabold px-4 py-2 rounded-xl text-xs sm:text-sm transition shadow-lg shadow-db-orange/30">
                             Gửi
@@ -556,6 +556,7 @@
     <script src="./js/services/pwaService.js" defer></script>
     <script src="./js/app.js" defer></script>
     <script type="module" src="./js/services/firebaseAuth.js"></script>
+    <script type="module" src="./js/services/firebaseComments.js"></script>
     <script data-cfasync="false" src="https://bancadeltempoidea.org/14/eaf50ac218591bdadf68fb89c1046142"></script>
 </body>
 </html>

@@ -1,4 +1,3 @@
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js';
 import {
     GoogleAuthProvider,
     getAdditionalUserInfo,
@@ -7,10 +6,7 @@ import {
     signInWithPopup,
     signOut
 } from 'https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js';
-import { firebaseConfig } from './firebaseConfig.js';
-
-const requiredConfigKeys = ['apiKey', 'authDomain', 'projectId', 'appId'];
-const isFirebaseConfigured = requiredConfigKeys.every(key => Boolean(firebaseConfig[key]));
+import { getFirebaseApp, isFirebaseConfigured } from './firebaseApp.js';
 
 let auth = null;
 let currentUser = null;
@@ -54,9 +50,15 @@ function ensureAuthConfigured() {
     }
 
     try {
-        auth = getAuth(initializeApp(firebaseConfig));
+        const app = getFirebaseApp();
+        if (!app) return null;
+        auth = getAuth(app);
         onAuthStateChanged(auth, user => {
             currentUser = user;
+            window.getCurrentAuthUser = () => currentUser;
+            document.getElementById('comment-input').placeholder = user
+                ? 'Nhập cảm nghĩ của bạn về tập phim này...'
+                : 'Đăng nhập Google để bình luận...';
             updateAuthButtons(user);
             updateAccountPanel(user);
         });
@@ -146,4 +148,5 @@ document.addEventListener('keydown', event => {
 
 updateAuthButtons(null);
 updateAccountPanel(null);
+window.getCurrentAuthUser = () => currentUser;
 if (isFirebaseConfigured) ensureAuthConfigured();
