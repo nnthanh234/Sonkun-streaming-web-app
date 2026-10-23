@@ -1,4 +1,4 @@
-const CACHE_NAME = 'son-kun-shell-v13';
+const CACHE_NAME = 'son-kun-shell-v16';
 const APP_SHELL = [
     './index.html',
     './styles/tailwind.css',
@@ -27,7 +27,14 @@ const APP_SHELL = [
 self.addEventListener('install', event => {
     event.waitUntil(
         caches.open(CACHE_NAME)
-            .then(cache => cache.addAll(APP_SHELL))
+            .then(cache => Promise.all(APP_SHELL.map(async path => {
+                const url = new URL(path, self.registration.scope);
+                const response = await fetch(new Request(url, { cache: 'reload' }));
+                if (!response.ok) {
+                    throw new Error(`Không thể tải tài nguyên ứng dụng: ${url.pathname}`);
+                }
+                await cache.put(url, response);
+            })))
             .then(() => self.skipWaiting())
     );
 });
@@ -50,40 +57,28 @@ self.addEventListener('fetch', event => {
 
     if (new URL(request.url).origin !== self.location.origin) return;
 
-    const isAppCode = request.mode === 'navigate'
-        || /\.(?:html|js|css|json)$/.test(new URL(request.url).pathname);
-
     event.respondWith((async () => {
         const cache = await caches.open(CACHE_NAME);
-        if (!isAppCode) {
-            const cached = await cache.match(request);
-            if (cached) return cached;
-        }
-
-        let response;
+        const cached = await cache.match(request);
+        if (cached) return cached;
 
         try {
-            response = await fetch(request, { cache: 'no-cache' });
+            const response = await fetch(request);
+            if (response.ok) {
+                try {
+                    await cache.put(request, response.clone());
+                } catch (error) {
+                    console.error('Không thể lưu tài nguyên vào cache:', error);
+                }
+            }
+            return response;
         } catch (error) {
-            const cached = await cache.match(request);
-            if (cached) return cached;
-
             if (request.mode === 'navigate') {
-                const appShell = await cache.match('./index.html');
+                const appShell = await cache.match(new URL('./index.html', self.registration.scope));
                 if (appShell) return appShell;
             }
 
             throw error;
         }
-
-        if (response.ok) {
-            try {
-                await cache.put(request, response.clone());
-            } catch (error) {
-                console.error('Không thể cập nhật cache ứng dụng:', error);
-            }
-        }
-
-        return response;
     })());
 });

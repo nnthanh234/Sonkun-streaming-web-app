@@ -49,6 +49,8 @@ function updatePlayerVideo() {
 }
 
 function playEpisode(epIndex) {
+    requestPlaybackPopupAd();
+    
     state.currentEpIndex = epIndex;
     updatePlayerVideo();
     renderEpisodeGrid();
