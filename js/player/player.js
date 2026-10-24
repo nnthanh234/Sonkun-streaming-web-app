@@ -1,7 +1,11 @@
 function openPlayerModal(movieId, epIndex = 0) {
     const movie = state.movies.find(m => m.id === movieId);
     if (!movie) return;
-    if (movie.isComingSoon) return;
+    if (movie.isComingSoon) {
+        requestPlaybackPopupAd();
+        return;
+    }
+
 
     state.currentMovie = movie;
     state.currentEpIndex = epIndex;
@@ -21,6 +25,11 @@ function openPlayerModal(movieId, epIndex = 0) {
     // Show Modal
     document.getElementById('player-modal').classList.remove('hidden');
     document.body.style.overflow = 'hidden';
+
+    window.dispatchEvent(new CustomEvent('sonkun:movie-open', {
+        detail: { movieId: movie.id, movieTitle: movie.title }
+    }));
+    trackEpisodeStart();
 }
 
 function updatePlayerVideo() {
@@ -56,6 +65,22 @@ function playEpisode(epIndex) {
     updatePlayerVideo();
     renderEpisodeGrid();
     renderComments();
+    trackEpisodeStart();
+}
+
+function trackEpisodeStart() {
+    const movie = state.currentMovie;
+    if (!movie) return;
+
+    const episode = movie.episodesList?.[state.currentEpIndex];
+    window.dispatchEvent(new CustomEvent('sonkun:episode-start', {
+        detail: {
+            movieId: movie.id,
+            movieTitle: movie.title,
+            episodeNumber: state.currentEpIndex + 1,
+            episodeTitle: episode?.title || `Tập ${state.currentEpIndex + 1}`
+        }
+    }));
 }
 
 function playNextEpisode(direction) {

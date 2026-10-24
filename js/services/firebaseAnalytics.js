@@ -20,6 +20,24 @@ function logPageView(tab) {
 }
 
 window.addEventListener('sonkun:navigate', event => logPageView(event.detail.tab));
+window.addEventListener('sonkun:movie-open', event => {
+    if (!analytics) return;
+
+    logEvent(analytics, 'movie_open', {
+        movie_id: event.detail.movieId,
+        movie_title: event.detail.movieTitle
+    });
+});
+window.addEventListener('sonkun:episode-start', event => {
+    if (!analytics) return;
+
+    logEvent(analytics, 'episode_start', {
+        movie_id: event.detail.movieId,
+        movie_title: event.detail.movieTitle,
+        episode_number: String(event.detail.episodeNumber),
+        episode_title: event.detail.episodeTitle
+    });
+});
 
 async function initializeAnalytics() {
     if (!isFirebaseConfigured || !firebaseConfig.measurementId) {
@@ -34,7 +52,7 @@ async function initializeAnalytics() {
         }
 
         analytics = getAnalytics(getFirebaseApp());
-        if (lastNavigatedTab) logPageView(lastNavigatedTab);
+        logPageView(lastNavigatedTab || 'home');
     } catch (error) {
         console.error('Không thể khởi tạo Firebase Analytics:', error);
     }
