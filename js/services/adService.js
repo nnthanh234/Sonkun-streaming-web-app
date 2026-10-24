@@ -7,3 +7,7 @@ function requestPlaybackPopupAd() {
     };
     document.body.appendChild(script);
 }
+
+function openEpisodeSmartlink() {
+    window.open('https://directyp.org/4/1137a4af23151633c3c0a74165233b13', '_blank', 'noopener,noreferrer');
+}
