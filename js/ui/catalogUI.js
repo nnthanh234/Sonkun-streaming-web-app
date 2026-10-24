@@ -175,7 +175,7 @@ function createCardHTML(movie) {
                 <h3 class="text-xs sm:text-sm font-extrabold text-white group-hover:text-db-orange transition line-clamp-1">${movie.title}</h3>
                 <div class="flex items-center justify-between text-[10px] text-gray-400">
                     <span>${movie.year}</span>
-                    <span class="bg-db-gray text-db-gold px-1.5 py-0.5 rounded font-bold">${movie.totalEpisodes} Tập</span>
+                    <span class="bg-db-gray text-db-gold px-1.5 py-0.5 rounded font-bold">${(movie.episodesList || []).length}/${movie.totalEpisodes} Tập</span>
                 </div>
             </div>
         </div>

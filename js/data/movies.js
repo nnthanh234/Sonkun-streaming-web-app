@@ -47,6 +47,7 @@ const DBZ_KAI_EPISODES = [
     { ep: 43, title: 'Goku Đối Đầu Frieza! Trận Quyết Chiến Siêu Cấp Bắt Đầu', duration: '23 phút', thumb: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=400&q=80', videoUrl: 'https://player.mediadelivery.net/embed/785756/717d752f-60be-4480-b8a4-32b973a57f84?autoplay=false', desc: 'Tập 43 của Dragon Ball Z Kai.' },
     { ep: 44, title: 'Cuộc Chiến Vượt Giới Hạn! Goku, Frieza Và Ginyu Lại Đụng Độ', duration: '23 phút', thumb: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=400&q=80', videoUrl: 'https://player.mediadelivery.net/embed/785756/10f67f90-8d70-47ec-9456-2eb746f49f3c?autoplay=false', desc: 'Tập 44 của Dragon Ball Z Kai.' },
     { ep: 45, title: 'Kaio-ken Gấp 20 Lần! Kamehameha Được Đánh Đổi Tất Cả', duration: '23 phút', thumb: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=400&q=80', videoUrl: 'https://player.mediadelivery.net/embed/785756/73c27033-1265-44c4-bdba-c24ae951db71?autoplay=false', desc: 'Tập 45 của Dragon Ball Z Kai.' },
+    { ep: 46, title: 'Goku gom năng lượng toàn vũ trụ, Piccolo liều mạng câu giờ!', duration: '23 phút', thumb: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=400&q=80', videoUrl: 'https://player.mediadelivery.net/embed/785756/65c82b94-6bf7-4cb8-83ed-52c5cf7adfcc?autoplay=false', desc: 'Tập 46 của Dragon Ball Z Kai.' },
 ];
 
 /* ==========================================================================
@@ -59,7 +60,7 @@ const DRAGON_BALL_DATABASE = [
         saga: 'Dragon Ball Z Kai',
         rating: 9.8,
         year: 2009,
-        totalEpisodes: 45,
+        totalEpisodes: 98,
         poster: 'https://dbPoster.b-cdn.net/zk.png',
         backdrop: 'https://dbPoster.b-cdn.net/zk.png',
         videoUrl: 'https://www.youtube.com/embed/L3oOldwaOXE?autoplay=1',
