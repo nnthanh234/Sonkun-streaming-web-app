@@ -49,6 +49,7 @@ const DBZ_KAI_EPISODES = [
     { ep: 45, title: 'Kaio-ken Gấp 20 Lần! Kamehameha Được Đánh Đổi Tất Cả', duration: '23 phút', thumb: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=400&q=80', videoUrl: 'https://player.mediadelivery.net/embed/785756/73c27033-1265-44c4-bdba-c24ae951db71?autoplay=false', desc: 'Tập 45 của Dragon Ball Z Kai.' },
     { ep: 46, title: 'Goku gom năng lượng toàn vũ trụ, Piccolo liều mạng câu giờ!', duration: '23 phút', thumb: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=400&q=80', videoUrl: 'https://player.mediadelivery.net/embed/785756/65c82b94-6bf7-4cb8-83ed-52c5cf7adfcc?autoplay=false', desc: 'Tập 46 của Dragon Ball Z Kai.' },
     { ep: 47, title: 'Krillin hy sinh, Goku thức tỉnh Super Saiyan huyền thoại!', duration: '23 phút', thumb: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=400&q=80', videoUrl: 'https://player.mediadelivery.net/embed/785756/cae26144-f5b2-40c3-bd40-2abe603940b4?autoplay=false', desc: 'Tập 47 của Dragon Ball Z Kai.' },
+    { ep: 48, title: 'Goku Super Saiyan áp đảo, Frieza tức quá đòi phá luôn hành tinh', duration: '23 phút', thumb: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=400&q=80', videoUrl: 'https://player.mediadelivery.net/embed/785756/076d8e0a-5830-44bd-ac50-cdde4a4ad8ce?autoplay=false', desc: 'Tập 48 của Dragon Ball Z Kai.' },
 ];
 
 /* ==========================================================================
