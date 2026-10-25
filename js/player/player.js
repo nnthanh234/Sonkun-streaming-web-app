@@ -2,10 +2,12 @@ function openPlayerModal(movieId, epIndex = 0) {
     const movie = state.movies.find(m => m.id === movieId);
     if (!movie) return;
     if (movie.isComingSoon) {
-        openEpisodeSmartlink();
+        requestPlaybackPopupAd();
         return;
     }
 
+    requestPlaybackPopupAd();
+    
     state.currentMovie = movie;
     state.currentEpIndex = epIndex;
 
